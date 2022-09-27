@@ -1,0 +1,14 @@
+/* *{
+    outline: 1px dashed black;
+} */
+.btnlink{
+    margin-left: 500px;
+}
+.table_container{
+    height: 400px;
+    overflow-y: scroll;
+}
+table, table tr, table th, table td{
+    border: 1px solid black;
+    white-space: nowrap;
+}
