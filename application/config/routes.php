@@ -55,3 +55,9 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['users/validate'] = 'users/process_signin';
 $route['users/logoff'] = 'users/logoff';
+
+
+$route['/dashboards/users'] = 'dashboards/users';
+$route['/dashboards/form'] = 'dashboards/form';
+$route['/dashboards/logs'] = 'dashboards/logs';
+$route['/dashboards/messages'] = 'dashboards/messages';

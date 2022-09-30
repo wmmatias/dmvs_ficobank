@@ -8,7 +8,13 @@ class Users extends CI_Controller {
     */
     public function index() 
     {   
-        $this->load->view('users/sign-in');
+        $current_user_id = $this->session->userdata('user_id');
+        if(!$current_user_id) {
+            $this->load->view('users/sign-in');
+        } 
+        else {
+            redirect("dashboards");
+        }
     }
 
     // /*  DOCU: This function is triggered to display registration page if there's no user session yet.
@@ -51,6 +57,8 @@ class Users extends CI_Controller {
         {
             $username = $this->input->post('username');
             $user = $this->user->get_user_by_email($username);
+            $fullname = $user['first_name'].' '.$user['last_name'];
+            $level = ($user['user_level'] === '0' ? 'Admin' : 'User');
             
             $result = $this->user->validate_signin_match($user, $this->input->post('password'));
             
@@ -58,7 +66,7 @@ class Users extends CI_Controller {
             {   
                 $is_admin = $this->user->validate_is_admin($username);
                 if(!empty($is_admin)){
-                    $this->session->set_userdata(array('user_id'=>$user['id'], 'auth' => true));
+                    $this->session->set_userdata(array('user_id'=>$user['id'], 'level'=>$level, 'fullname'=>$fullname, 'auth' => true, 'page' => 'Dashboard'));
                     redirect("dashboards");
                 }
                 else{

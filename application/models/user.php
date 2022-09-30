@@ -33,7 +33,7 @@ class User extends CI_Model {
         Owner: 
     */
     function validate_signin_form() {
-        $this->form_validation->set_error_delimiters('<div>','</div>');
+        $this->form_validation->set_error_delimiters('<div class="alert alert-danger text-white">','</div>');
         $this->form_validation->set_rules('username', 'Username', 'required');
         $this->form_validation->set_rules('password', 'Password', 'required');
     
