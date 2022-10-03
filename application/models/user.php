@@ -2,39 +2,49 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class User extends CI_Model {
-
-    /*  DOCU: This function retrieves user information filtered by email.
-        Owner: 
-    */
-    function get_user_by_email($username)
+    function get_user($username)
     { 
-        $query = "SELECT * FROM users WHERE user_name=?";
+        $query = "SELECT * FROM users WHERE user_name = ?";
         return $this->db->query($query, $this->security->xss_clean($username))->result_array()[0];
     }
 
-    /*  DOCU: This function inserts new user info upon registration.
-        Owner: 
-    */
+    function get_user_add($username)
+    { 
+        $query = "SELECT * FROM users WHERE user_name = ?";
+        return $this->db->query($query, $this->security->xss_clean($username))->result_array();
+    }
+    
+    function get_all_user()
+    { 
+        $query = "SELECT * FROM users";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function delete_user_id($id) {
+        return $this->db->query("DELETE FROM users WHERE id = ?", 
+        array(
+            $this->security->xss_clean($id)));
+    }
+
     function create_user($user)
     {
-        $query = "INSERT INTO Users (first_name, last_name, email, password,created_at,updated_at) VALUES (?,?,?,?,?,?)";
+        $password = 'P@ssw0rd';
+        $query = "INSERT INTO Users (first_name, last_name, user_name, password, user_level,created_at,updated_at) VALUES (?,?,?,?,?,?,?)";
         $values = array(
-            $this->security->xss_clean($user['first_name']), 
-            $this->security->xss_clean($user['last_name']), 
-            $this->security->xss_clean($user['email']), 
-            md5($this->security->xss_clean($user["password"])),
+            $this->security->xss_clean($user['firstname']), 
+            $this->security->xss_clean($user['lastname']), 
+            $this->security->xss_clean($user['username']), 
+            md5($this->security->xss_clean($password)),
+            $this->security->xss_clean($user['userlevel']), 
             $this->security->xss_clean(date("Y-m-d, H:i:s")),
             $this->security->xss_clean(date("Y-m-d, H:i:s"))); 
         
         return $this->db->query($query, $values);
     }
 
-    /*  DOCU: This function checks if all required fields were filled up.
-        Owner: 
-    */
     function validate_signin_form() {
-        $this->form_validation->set_error_delimiters('<div class="alert alert-danger text-white">','</div>');
-        $this->form_validation->set_rules('username', 'Username', 'required');
+        $this->form_validation->set_error_delimiters('<div>','</div>');
+        $this->form_validation->set_rules('username', 'UserName', 'required');
         $this->form_validation->set_rules('password', 'Password', 'required');
     
         if(!$this->form_validation->run()) {
@@ -45,9 +55,6 @@ class User extends CI_Model {
         }
     }
     
-    /*  DOCU: This function contains simple condition to match database record and user input in password.
-        Owner: 
-    */
     function validate_signin_match($user, $password) 
     {
         $hash_password = md5($this->security->xss_clean($password));
@@ -56,47 +63,37 @@ class User extends CI_Model {
             return "success";
         }
         else {
-            return "Incorrect email/password.";
+            return "Incorrect username/password.";
         }
     }
-    function validate_is_admin($username) 
+    function validate_is_admin($user_name) 
     {
-        $query = "SELECT user_level FROM users WHERE user_name=? and user_level = 0";
-        return $this->db->query($query, $this->security->xss_clean($username))->result_array()[0];
+        $query = "SELECT user_level FROM users WHERE user_name = ? and user_level = 0";
+        return $this->db->query($query, $this->security->xss_clean($user_name))->result_array()[0];
     }
 
-    /*  DOCU: This function checks required input fields and if unique email.
-        Owner: 
-    */
-    function validate_registration($email) 
+    function validate_registration($username) 
     {
         $this->form_validation->set_error_delimiters('<div>','</div>');
-        $this->form_validation->set_rules('first_name', 'First Name', 'required|alpha');
-        $this->form_validation->set_rules('last_name', 'Last Name', 'required|alpha');   
-        $this->form_validation->set_rules('email', 'Email', 'required|valid_email');        
-        $this->form_validation->set_rules('password', 'Password', 'required|min_length[8]');
-        $this->form_validation->set_rules('Confirm_password', 'Confirm Password', 'required|matches[password]');
+        $this->form_validation->set_rules('firstname', 'First Name', 'required|alpha');
+        $this->form_validation->set_rules('lastname', 'Last Name', 'required|alpha');   
+        $this->form_validation->set_rules('username', 'User Name', 'required');        
+        $this->form_validation->set_rules('userlevel', 'User Level', 'required');
         
         if(!$this->form_validation->run()) {
             return validation_errors();
         }
-        else if($this->get_user_by_email($email)) {
-            return "Email already taken.";
+        else if($this->get_user_add($username)) {
+            return "User name already taken.";
         }
     }
 
-    /*  DOCU: This function return details of current user.
-        Owner: 
-    */
     function get_user_id($id)
     {
         $query = "SELECT * FROM users WHERE id=?";
         return $this->db->query($query, $this->security->xss_clean($id))->result_array()[0];
     }
 
-    /*  DOCU: This function checks required input fields in modifying information.
-        Owner: 
-    */
     function validate_information() 
     {
         $this->form_validation->set_error_delimiters('<div>','</div>');
@@ -112,9 +109,6 @@ class User extends CI_Model {
         }
     }
 
-     /*  DOCU: This function is updating the user information after validation.
-        Owner: 
-    */
     function update_userinformation($form_data) 
     {
         return $this->db->query("UPDATE users SET first_name = ?, last_name = ?, email = ?, updated_at = ? WHERE id = ?", 
@@ -126,9 +120,6 @@ class User extends CI_Model {
             $this->security->xss_clean($form_data['id'])));
     }
 
-    /*  DOCU: This function checks required input fields in modifying credentials.
-        Owner: 
-    */
     function validate_change_password($password = NULL) 
     {
         $this->form_validation->set_error_delimiters('<div>','</div>');
@@ -144,9 +135,6 @@ class User extends CI_Model {
         }
     }
 
-    /*  DOCU: This function is for checking of inputed old password and stored password to database.
-       Owner: 
-   */
     function check_password($password){
          return $this->db->query("SELECT password FROM users WHERE id=? and password = ?", 
         array(
@@ -154,9 +142,6 @@ class User extends CI_Model {
             md5($this->security->xss_clean($password['old_password']))))->row_array(); 
     }
 
-    /*  DOCU: This function is for updating credentials.
-        Owner: 
-    */
     function update_credentials($form_data) 
     {
         return $this->db->query("UPDATE users SET password = ?, updated_at = ? WHERE id = ?", 

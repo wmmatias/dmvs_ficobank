@@ -34,9 +34,24 @@ $level = $this->session->userdata('level');
             </a>
             </li>
             <li class="nav-item">
-            <a <?= ($page === 'Logs') ? 'class="nav-link text-white active bg-gradient-primary""' : 'class="nav-link text-white"' ?> href="/dashboards/logs">
-                <span class="nav-link-text ms-1">Logs</span>
-            </a>
+                <a <?= ($page === 'Logs') ? 'class="nav-link text-white active bg-gradient-primary dropdown-toggle"' : 'class="nav-link text-white dropdown-toggle"' ?> href="#" role="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="nav-link-text ms-1">Logs</span>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li>
+                        <a class="nav-dropdown-item" href="#">ROD</a>
+                    </li>
+                    <li>
+                        <a class="nav-dropdown-item" href="#">Treasury</a>
+                    </li>
+                    <li>
+                        <a class="nav-dropdown-item" href="#">LTO</a>
+                    </li>
+                    <li>
+                        <a class="nav-dropdown-item" href="#">Office</a>
+                    </li>
+                    <hr class="horizontal light mt-0 mb-2">
+                </ul>
             </li>
             <li class="nav-item">
             <a <?= ($page === 'Messages') ? 'class="nav-link text-white active bg-gradient-primary""' : 'class="nav-link text-white"' ?> href="/dashboards/messages">
@@ -45,5 +60,10 @@ $level = $this->session->userdata('level');
             </li>
         </ul>
         </div>
-        <p class="text-muted fixed-bottom ms-5 mb-5 text-white fw-bold nav-link">login as: <?=$level?></p>
+        
+        <div class="sidenav-footer position-absolute w-100 bottom-0 ">
+            <div class="mx-3">
+                <p class="text-muted ms-2 mb-5 text-white fw-bold nav-link">login as: <?=$level?></p>
+            </div>
+        </div>
     </aside>

@@ -26,11 +26,40 @@ class Dashboards extends CI_Controller {
             redirect("users");
         } 
         else {
+            $result = $this->user->get_all_user();
+            $list = array('list' => $result);
             $this->session->set_userdata(array('page'=> 'User'));
             $this->load->view('templates/header');
             $this->load->view('templates/aside');
             $this->load->view('templates/topbar');   
-            $this->load->view('admin/userlist');
+            $this->load->view('admin/userlist',$list);
+            $this->load->view('templates/footer');
+        }
+        
+    }
+
+    public function delete($id) 
+    {  
+        $this->user->delete_user_id($id);
+        redirect('/dashboards/users');
+    }
+
+    
+
+    public function add_user() 
+    {   
+        $current_user_id = $this->session->userdata('user_id');
+        if(!$current_user_id) {
+            redirect("users");
+        } 
+        else {
+            $result = $this->user->get_all_user();
+            $list = array('list' => $result);
+            $this->session->set_userdata(array('page'=> 'User'));
+            $this->load->view('templates/header');
+            $this->load->view('templates/aside');
+            $this->load->view('templates/topbar');   
+            $this->load->view('admin/add_user',$list);
             $this->load->view('templates/footer');
         }
         

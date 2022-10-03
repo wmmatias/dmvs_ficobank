@@ -8,7 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
               <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
                 <h6 class="text-white text-capitalize ps-3 d-inline-block">Users list</h6>
-                <a class="text-white d-inline-block float-end me-3" href=""><i class="fas fa-plus"></i></a>
+                <a class="text-white d-inline-block float-end me-3" href="/dashboards/add_user"><i class="fas fa-plus"></i></a>
               </div>
             </div>
             <div class="card-body p-3">
@@ -21,73 +21,40 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Status</th>
                         <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Created at</th>
                         <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Updated at</th>
+                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                    <tr>
+<?php                   for($i=0; $i<count($list); $i++){
+                        $create = date('m-d-Y', strtotime($list[$i]['created_at']));
+                        $update = date('m-d-Y', strtotime($list[$i]['updated_at']));
+?>                        <tr>
                             <td>
                                 <div class="d-flex px-2">
                                     <div class="my-auto">
-                                        <h6 class="mb-0 text-sm">Juan Dela Cruz</h6>
+                                        <h6 class="mb-0 text-sm"><?=$list[$i]['first_name'] .' '. $list[$i]['last_name']?></h6>
                                     </div>
                                 </div>
                             </td>
                             <td>
-                                <p class="text-sm font-weight-bold mb-0">Admin</p>
+                                <p class="text-sm font-weight-bold mb-0"><?=($list[$i]['user_level'] === '2' ? 'Bookeeper' : 'Manager / Asst Manager')?></p>
                             </td>
                             <td>
-                                <p class="text-sm font-weight-bold mb-0">Active</p>
+                                <p class="text-sm font-weight-bold mb-0"><?=($list[$i]['status'] === '1' ? 'Active' : 'Not Active')?></p>
                             </td>
                             <td >
-                                <p class="text-sm font-weight-bold mb-0">09/29/2022</p>
+                                <p class="text-sm font-weight-bold mb-0"><?=$create?></p>
                             </td>
                             <td>
-                                <p class="text-sm font-weight-bold mb-0">09/29/2022</p> 
+                                <p class="text-sm font-weight-bold mb-0"><?=$update?></p> 
+                            </td>
+                            <td>
+                                <a href="users/edit/<?=$list[$i]['id']?>" class="text-xxsm btn btn-info"><i class="fas fa-pen"></i></a>
+                                <a href="/users/delete/<?=$list[$i]['id']?>" onclick="return confirm('Are you sure you want to DELETE this?')" class="text-xxsm btn btn-danger"><i class="fas fa-trash"></i></a>
                             </td>
                         </tr>
-                        <tr>
-                            <td>
-                                <div class="d-flex px-2">
-                                    <div class="my-auto">
-                                        <h6 class="mb-0 text-sm">Juan Dela Cruz</h6>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <p class="text-sm font-weight-bold mb-0">Admin</p>
-                            </td>
-                            <td>
-                                <p class="text-sm font-weight-bold mb-0">Active</p>
-                            </td>
-                            <td >
-                                <p class="text-sm font-weight-bold mb-0">10/29/2022</p>
-                            </td>
-                            <td>
-                                <p class="text-sm font-weight-bold mb-0">09/29/2022</p> 
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="d-flex px-2">
-                                    <div class="my-auto">
-                                        <h6 class="mb-0 text-sm">Juan Dela Cruz</h6>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <p class="text-sm font-weight-bold mb-0">Admin</p>
-                            </td>
-                            <td>
-                                <p class="text-sm font-weight-bold mb-0">Active</p>
-                            </td>
-                            <td >
-                                <p class="text-sm font-weight-bold mb-0">11/29/2022</p>
-                            </td>
-                            <td>
-                                <p class="text-sm font-weight-bold mb-0">09/29/2022</p> 
-                            </td>
-                        </tr>
-                    </tbody>
+<?php                   }
+?>                                    </tbody>
                 </table>
               </div>
             </div>

@@ -2,10 +2,6 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Users extends CI_Controller {
-    
-    /*  DOCU: This function is triggered by default which displays the sign in/dashboard.
-        Owner: 
-    */
     public function index() 
     {   
         $current_user_id = $this->session->userdata('user_id');
@@ -17,9 +13,6 @@ class Users extends CI_Controller {
         }
     }
 
-    // /*  DOCU: This function is triggered to display registration page if there's no user session yet.
-    //     Owner: 
-    // */
     public function register() 
     {
         $current_user_id = $this->session->userdata('user_id');
@@ -32,20 +25,12 @@ class Users extends CI_Controller {
         }
     }
 
-    /*  DOCU: This function logs out the current user then goes to sign in page.
-        Owner: 
-    */
     public function logoff() 
     {
         $this->session->sess_destroy();
         redirect("/");   
     }
-    
-    /*  DOCU: This function is triggered when the sign in button is clicked. 
-        This validates the required form inputs and if user password matches in the database by given email.
-        If no problem occured, user will be routed to the dashboard.
-        Owner: 
-    */
+  
     public function process_signin() 
     {
         $result = $this->user->validate_signin_form();
@@ -56,7 +41,7 @@ class Users extends CI_Controller {
         else 
         {
             $username = $this->input->post('username');
-            $user = $this->user->get_user_by_email($username);
+            $user = $this->user->get_user($username);
             $fullname = $user['first_name'].' '.$user['last_name'];
             $level = ($user['user_level'] === '0' ? 'Admin' : 'User');
             
@@ -83,36 +68,66 @@ class Users extends CI_Controller {
 
     }
     
-    // /*  DOCU: This function is triggered when the register button is clicked. 
-    //     This validates the required form inputs then checks if the email is already taken. 
-    //     If no problem occured, user information will be stored in database 
-    //     and said user will be routed to the dashboard.
-    //     Owner: 
-    // */
-    public function process_registration() 
+    public function process_creation() 
     {   
-        $email = $this->input->post('email');
-        $result = $this->user->validate_registration($email);
+        $username = $this->input->post('username');
+        $result = $this->user->validate_registration($username);
         if($result!=null)
         {
             $this->session->set_flashdata('input_errors', $result);
-            redirect("register");
+            $this->session->set_userdata(array('page'=> 'User'));
+            $this->load->view('templates/header');
+            $this->load->view('templates/aside');
+            $this->load->view('templates/topbar');   
+            $this->load->view('admin/add_user');
+            $this->load->view('templates/footer');
         }
         else
         {
             $form_data = $this->input->post();
             $this->user->create_user($form_data);
-
-            $new_user = $this->user->get_user_by_email($form_data['email']);
-            $this->session->set_userdata(array('user_id' => $new_user["id"], 'first_name'=>$new_user['first_name']));
             
-            redirect("dashboard");
+
+            $result = $this->user->get_all_user();
+            $list = array('listp' => $result);
+            $this->session->set_userdata(array('page'=> 'User'));
+            $this->load->view('templates/header');
+            $this->load->view('templates/aside');
+            $this->load->view('templates/topbar');   
+            $this->load->view('admin/userlist',$list);
+            $this->load->view('templates/footer');
         }
     }
 
-    /*  DOCU: This function loads the details of current user in profile page.
-        Owner: 
-    */
+    public function process_registration() 
+    {   
+        $username = $this->input->post('username');
+        $result = $this->user->validate_registration($username);
+        if($result!=null)
+        {
+            $this->session->set_flashdata('input_errors', $result);
+            $this->session->set_userdata(array('page'=> 'User'));
+            $this->load->view('templates/header');
+            $this->load->view('templates/aside');
+            $this->load->view('templates/topbar');   
+            $this->load->view('admin/add_user');
+            $this->load->view('templates/footer');
+        }
+        else
+        {
+            $form_data = $this->input->post();
+            $this->user->create_user($form_data);
+            
+            $this->session->set_flashdata('input_errors', 'User created Sucessfully');
+            $this->session->set_userdata(array('page'=> 'User'));
+            $this->load->view('templates/header');
+            $this->load->view('templates/aside');
+            $this->load->view('templates/topbar');   
+            $this->load->view('admin/add_user');
+            $this->load->view('templates/footer');
+        }
+    }
+
     public function profile() 
     {   
         $user_id = $this->session->user_id;
@@ -122,9 +137,6 @@ class Users extends CI_Controller {
         $this->load->view('users/edit',$details); 
     }
 
-    /*  DOCU: This function validate the user information.
-        Owner: 
-    */
     public function edit_information_process() 
     {   
         $result = $this->user->validate_information();
@@ -140,10 +152,7 @@ class Users extends CI_Controller {
             redirect("users/edit");
         }
     }
-    
-    /*  DOCU: This function validate the user credentials input.
-        Owner: 
-    */
+
     public function edit_credentials() 
     {   
         $this->output->enable_profiler(TRUE);
