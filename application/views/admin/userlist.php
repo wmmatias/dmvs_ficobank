@@ -49,7 +49,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <p class="text-sm font-weight-bold mb-0"><?=$update?></p> 
                             </td>
                             <td>
-                                <a href="users/edit/<?=$list[$i]['id']?>" class="text-xxsm btn btn-info"><i class="fas fa-pen"></i></a>
+                                <a href="/dashboards/edit/<?=$list[$i]['id']?>" class="text-xxsm btn btn-info"><i class="fas fa-pen"></i></a>
                                 <a href="/users/delete/<?=$list[$i]['id']?>" onclick="return confirm('Are you sure you want to DELETE this?')" class="text-xxsm btn btn-danger"><i class="fas fa-trash"></i></a>
                             </td>
                         </tr>

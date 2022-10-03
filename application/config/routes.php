@@ -61,8 +61,8 @@ $route['dashboards/users'] = 'dashboards/users';
 $route['dashboards/add_user'] = 'dashboards/add_user';
 $route['users/create'] = 'users/process_registration';
 $route['users/delete/(:any)'] = 'dashboards/delete/$1';
-$route['users/edit/(:any)'] = 'dashboards/edit/$1';
-$route['users/edit/(:any)/validate'] = 'dashboards/process_user_modification';
+$route['dashboards/edit/(:any)'] = 'dashboards/edit/$1';
+$route['dashboards/edit/(:any)/validate'] = 'dashboards/process_user_modification';
 
 $route['dashboards/form'] = 'dashboards/form';
 $route['dashboards/logs'] = 'dashboards/logs';

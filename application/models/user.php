@@ -88,9 +88,24 @@ class User extends CI_Model {
         }
     }
 
+    public function validate_registration_user() {
+        $this->form_validation->set_error_delimiters('<div>','</div>');
+        $this->form_validation->set_rules('firstname', 'First Name', 'required|alpha');
+        $this->form_validation->set_rules('lastname', 'Last Name', 'required|alpha');   
+        $this->form_validation->set_rules('username', 'User Name', 'required');        
+        $this->form_validation->set_rules('userlevel', 'User Level', 'required');
+
+        if(!$this->form_validation->run()) {
+            return validation_errors();
+        }
+        else {
+            return 'success';
+        }
+    }
+
     function get_user_id($id)
     {
-        $query = "SELECT * FROM users WHERE id=?";
+        $query = "SELECT id, first_name, last_name, user_name, user_level FROM users WHERE id=?";
         return $this->db->query($query, $this->security->xss_clean($id))->result_array()[0];
     }
 
@@ -111,13 +126,17 @@ class User extends CI_Model {
 
     function update_userinformation($form_data) 
     {
-        return $this->db->query("UPDATE users SET first_name = ?, last_name = ?, email = ?, updated_at = ? WHERE id = ?", 
+        return $this->db->query("UPDATE users SET first_name = ?, last_name = ?, user_name = ?, user_level = ? WHERE id = ?", 
         array(
-            $this->security->xss_clean($form_data['first_name']), 
-            $this->security->xss_clean($form_data['last_name']),
-            $this->security->xss_clean($form_data['email']), 
-            $this->security->xss_clean(date("Y-m-d, H:i:s")),
-            $this->security->xss_clean($form_data['id'])));
+            $this->security->xss_clean($form_data['firstname']), 
+            $this->security->xss_clean($form_data['lastname']),
+            $this->security->xss_clean($form_data['username']), 
+            $this->security->xss_clean($form_data['userlevel']),
+            $this->security->xss_clean($form_data['id'])
+        ));
+        
+        
+var_dump($_POST);
     }
 
     function validate_change_password($password = NULL) 
@@ -150,6 +169,8 @@ class User extends CI_Model {
             $this->security->xss_clean(date("Y-m-d, H:i:s")),
             $this->security->xss_clean($form_data['id'])));
     }
+
+    
 }
 
 ?>
