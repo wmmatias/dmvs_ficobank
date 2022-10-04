@@ -155,7 +155,6 @@ class Users extends CI_Controller {
 
     public function edit_credentials() 
     {   
-        $this->output->enable_profiler(TRUE);
         $checkpassword = $this->input->post();
         $result = $this->user->validate_change_password($checkpassword);
         if(!empty($result)) {

@@ -55,8 +55,6 @@ class Dashboards extends CI_Controller {
         $this->load->view('templates/topbar');   
         $this->load->view('admin/edit_user',$list);
         $this->load->view('templates/footer');
-        
-    $this->output->enable_profiler(TRUE);
     }
 
     public function process_user_modification() 
@@ -70,6 +68,7 @@ class Dashboards extends CI_Controller {
         else
         {
             $form_data = $this->input->post();
+            var_dump($form_data);
             $this->user->update_userinformation($form_data);
             $this->session->set_flashdata('input_errors','The user successfully modified');
             redirect("dashboards/edit/$edit_id");

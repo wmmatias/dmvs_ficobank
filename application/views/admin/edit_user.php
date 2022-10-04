@@ -53,7 +53,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="row">
                         <div class="col-md-4">
                             <div class="text-center">
-                                <input type="hidden" value="<?=$list['id']?>">
+                                <input type="hidden" name="id" value="<?=$list['id']?>">
                                 <button type="submit" class="btn btn-success w-100 my-4 mb-2">Add User</button>
                             </div>
                         </div>

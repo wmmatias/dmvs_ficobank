@@ -135,8 +135,6 @@ class User extends CI_Model {
             $this->security->xss_clean($form_data['id'])
         ));
         
-        
-var_dump($_POST);
     }
 
     function validate_change_password($password = NULL) 
