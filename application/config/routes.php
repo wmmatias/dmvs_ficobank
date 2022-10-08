@@ -50,7 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['default_controller'] = 'users';
-$route['404_override'] = '';
+$route['404_override'] = 'errors/error_404';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['users/validate'] = 'users/process_signin';
@@ -66,6 +66,11 @@ $route['dashboards/edit/(:any)/validate'] = 'dashboards/process_user_modificatio
 
 $route['dashboards/form'] = 'dashboards/form';
 $route['dashboards/logs'] = 'dashboards/logs';
-$route['dashboards/messages'] = 'dashboards/messages';
+$route['dashboards/history'] = 'dashboards/history';
+
+$route['documents/create'] = 'documents/create';
+$route['documents/view/(:any)'] = 'documents/view/$1';
+$route['documents/edit/(:any)'] = 'documents/edit/$1';
+$route['documents/edit/(:any)/validate'] = 'documents/process_user_modification';
 
 

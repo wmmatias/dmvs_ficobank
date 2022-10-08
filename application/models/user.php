@@ -75,8 +75,8 @@ class User extends CI_Model {
     function validate_registration($username) 
     {
         $this->form_validation->set_error_delimiters('<div>','</div>');
-        $this->form_validation->set_rules('firstname', 'First Name', 'required|alpha');
-        $this->form_validation->set_rules('lastname', 'Last Name', 'required|alpha');   
+        $this->form_validation->set_rules('firstname', 'First Name', 'required');
+        $this->form_validation->set_rules('lastname', 'Last Name', 'required');   
         $this->form_validation->set_rules('username', 'User Name', 'required');        
         $this->form_validation->set_rules('userlevel', 'User Level', 'required');
         
@@ -90,8 +90,8 @@ class User extends CI_Model {
 
     public function validate_registration_user() {
         $this->form_validation->set_error_delimiters('<div>','</div>');
-        $this->form_validation->set_rules('firstname', 'First Name', 'required|alpha');
-        $this->form_validation->set_rules('lastname', 'Last Name', 'required|alpha');   
+        $this->form_validation->set_rules('firstname', 'First Name', 'required');
+        $this->form_validation->set_rules('lastname', 'Last Name', 'required');   
         $this->form_validation->set_rules('username', 'User Name', 'required');        
         $this->form_validation->set_rules('userlevel', 'User Level', 'required');
 

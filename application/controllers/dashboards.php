@@ -105,15 +105,17 @@ class Dashboards extends CI_Controller {
             $this->load->view('templates/header');
             $this->load->view('templates/aside');
             $this->load->view('templates/topbar');   
-            $this->load->view('admin/form');
+            $this->load->view('admin/add_docs');
             $this->load->view('templates/footer');
         }
         
         
     }
 
-    public function logs() 
+    public function history() 
     {   
+        $result = $this->document->get_all_docs();
+        $details = array('list'=>$result);
         $current_user_id = $this->session->userdata('user_id');
         if(!$current_user_id) {
             redirect("users");
@@ -123,28 +125,28 @@ class Dashboards extends CI_Controller {
             $this->load->view('templates/header');
             $this->load->view('templates/aside');
             $this->load->view('templates/topbar');   
-            $this->load->view('admin/logs');
+            $this->load->view('admin/logs',$details);
             $this->load->view('templates/footer');
         }
         
         
     }
 
-    public function messages() 
-    {   
-        $current_user_id = $this->session->userdata('user_id');
-        if(!$current_user_id) {
-            redirect("users");
-        } 
-        else {
-            $this->session->set_userdata(array('page'=> 'Messages'));
-            $this->load->view('templates/header');
-            $this->load->view('templates/aside');
-            $this->load->view('templates/topbar');   
-            $this->load->view('admin/messages');
-            $this->load->view('templates/footer');
-        }
+    // public function messages() 
+    // {   
+    //     $current_user_id = $this->session->userdata('user_id');
+    //     if(!$current_user_id) {
+    //         redirect("users");
+    //     } 
+    //     else {
+    //         $this->session->set_userdata(array('page'=> 'Messages'));
+    //         $this->load->view('templates/header');
+    //         $this->load->view('templates/aside');
+    //         $this->load->view('templates/topbar');   
+    //         $this->load->view('admin/messages');
+    //         $this->load->view('templates/footer');
+    //     }
         
         
-    }
+    // }
 }
