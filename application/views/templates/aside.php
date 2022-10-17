@@ -34,11 +34,13 @@ $level = $this->session->userdata('level');
             </a>
             </li>
             <li class="nav-item">
-                <a <?= ($page === 'Logs') ? 'class="nav-link text-white active bg-gradient-primary"' : 'class="nav-link text-white"' ?> href="/dashboards/history" >
+                <a <?= ($page === 'Logs') ? 'class="nav-link text-white active bg-gradient-primary dropdown-toggle"' : 'class="nav-link text-white dropdown-toggle"' ?> href="#" role="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                     <span class="nav-link-text ms-1">Documents</span>
                 </a>
-                <!-- <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    role="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li>
+                        <a class="nav-dropdown-item" href="/dashboards/history">Office</a>
+                    </li>
                     <li>
                         <a class="nav-dropdown-item" href="#">ROD</a>
                     </li>
@@ -48,11 +50,8 @@ $level = $this->session->userdata('level');
                     <li>
                         <a class="nav-dropdown-item" href="#">LTO</a>
                     </li>
-                    <li>
-                        <a class="nav-dropdown-item" href="#">Office</a>
-                    </li>
                     <hr class="horizontal light mt-0 mb-2">
-                </ul> -->
+                </ul>
             </li>
             <!-- <li class="nav-item">
             <a <?= ($page === 'Messages') ? 'class="nav-link text-white active bg-gradient-primary""' : 'class="nav-link text-white"' ?> href="/dashboards/messages">

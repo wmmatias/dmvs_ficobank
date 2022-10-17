@@ -13,3 +13,21 @@
 .dropdown-menu:active{
     background-color: red;
 }
+
+.view_docs .form-group label{
+    font-size: x-large;
+}
+
+@media (max-width: 500px){
+    .view_docs .form-group label{
+        font-size: medium;
+    }
+}
+
+@media print{
+    .view_docs .form-group label{
+        font-size: medium;
+    }
+}
+
+

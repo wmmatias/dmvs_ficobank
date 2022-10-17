@@ -12,10 +12,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </div>
             </div>
             <div class="card-body p-3">
-              <div class="table-responsive p-0">
-                <table class="table align-items-center justify-content-center mb-0" id="userlist">
+              <div class="docslist table-responsive p-0">
+                <table class="table align-items-center justify-content-center mb-0" id="docslist">
                     <thead>
                         <tr>
+                        <th class="sticky-col first-col text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Actions</th>
                         <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Doc #</th>
                         <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Client's Name</th>
                         <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Type of Loan</th>
@@ -26,14 +27,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Status</th>
                         <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Docs Recieved date</th>
                         <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Docs Created date</th>
-                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
 <?php                   for($i=0; $i<count($list); $i++){
                         $create = date('m-d-Y', strtotime($list[$i]['created_at']));
                         $recieved = date('m-d-Y', strtotime($list[$i]['delivered_at']));
-?>                        <tr>
+?>                        <tr class="sticky-col first-col">
+                            <td>
+                                <a href="/documents/view/<?=$list[$i]['id']?>" class="text-xxsm"><i class="fas fa-eye"></i></a> |
+                                <a href="/documents/edit/<?=$list[$i]['id']?>" class="text-xxsm"><i class="fas fa-pen"></i></a> |
+                                <a href="/documents/delete/<?=$list[$i]['id']?>" onclick="return confirm('Are you sure you want to DELETE this?')" class="text-xxsm"><i class="fas fa-trash"></i></a>
+                            </td>
                             <td>
                                 <div class="d-flex px-2">
                                     <div class="my-auto">
@@ -67,11 +72,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </td>
                             <td>
                                 <p class="text-sm font-weight-bold mb-0"><?=$create?></p> 
-                            </td>
-                            <td>
-                                <a href="/documents/view/<?=$list[$i]['id']?>" class="text-xxsm btn btn-success"><i class="fas fa-eye"></i></a>
-                                <a href="/dashboards/edit/<?=$list[$i]['id']?>" class="text-xxsm btn btn-info"><i class="fas fa-pen"></i></a>
-                                <a href="/users/delete/<?=$list[$i]['id']?>" onclick="return confirm('Are you sure you want to DELETE this?')" class="text-xxsm btn btn-danger"><i class="fas fa-trash"></i></a>
                             </td>
                         </tr>
 <?php                   }

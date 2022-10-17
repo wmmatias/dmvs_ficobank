@@ -15,7 +15,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
   <!-- Nucleo Icons -->
-  <link rel="stylesheet" href="/assets/css/style.css">
   <link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
   <link href="/assets/css/nucleo-svg.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
@@ -26,6 +25,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
   <!-- CSS Files -->
   <link id="pagestyle" href="/assets/css/material-dashboard.css?v=3.0.4" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="/application/third_party/normalize.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
   <script src="/assets/js/App.js"></script>

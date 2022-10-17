@@ -19,7 +19,8 @@ class Document extends CI_Model {
         $query = "SELECT documents.id, documents.doc_number, documents.fullname, documents.loan_type, documents.document_type, locations.location, locations.status, locations.recieved_by, locations.position, locations.delivered_at, documents.created_at
         FROM documents
         LEFT JOIN locations
-        ON documents.id=locations.document_id;";
+        ON documents.id=locations.document_id
+        ORDER BY documents.created_at DESC";
         return $this->db->query($query)->result_array();
     }
 
@@ -39,6 +40,18 @@ class Document extends CI_Model {
         FROM locations
         WHERE locations.document_id = ?;";
         return $this->db->query($query, $this->security->xss_clean($id))->result_array();
+    }
+
+    public function delete_doc_by_id($id) {
+        return $this->db->query("DELETE FROM documents WHERE id = ?", 
+        array(
+            $this->security->xss_clean($id)));
+    }
+
+    public function delete_loc_by_docid($id) {
+        return $this->db->query("DELETE FROM locations WHERE document_id = ?", 
+        array(
+            $this->security->xss_clean($id)));
     }
 
     function validate_doc_num($docnum) 

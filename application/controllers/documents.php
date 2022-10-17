@@ -76,4 +76,30 @@ class Documents extends CI_Controller {
         
     }
 
+    public function edit($id) 
+    {   
+        $docs = $this->document->get_all_docs_by_id($id);
+        $loc = $this->document->get_all_loc_by_id($id);
+        $list = array('list'=> $docs, 'loc'=> $loc);
+        $current_user_id = $this->session->userdata('user_id');
+        if(!$current_user_id) {
+            redirect("users");
+        } 
+        else {
+            $this->session->set_userdata(array('page'=> 'Logs'));
+            $this->load->view('templates/header');
+            $this->load->view('templates/aside');
+            $this->load->view('templates/topbar');   
+            $this->load->view('admin/edit_docs',$list);
+            $this->load->view('templates/footer');
+        }
+        
+    }
+    public function delete($id) 
+    {  
+        $this->document->delete_loc_by_docid($id);
+        $this->document->delete_doc_by_id($id);
+        redirect('/dashboards/history');
+    }
+
 }
