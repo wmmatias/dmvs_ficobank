@@ -2,6 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Users extends CI_Controller {
+    
     public function index() 
     {   
         $current_user_id = $this->session->userdata('user_id');
@@ -43,7 +44,19 @@ class Users extends CI_Controller {
             $username = $this->input->post('username');
             $user = $this->user->get_user($username);
             $fullname = $user['first_name'].' '.$user['last_name'];
-            $level = ($user['user_level'] === '0' ? 'Admin' : 'User');
+            $level = '';
+            if($user['user_level'] === '0'){
+                $level = 'Admin';
+            }
+            elseif($user['user_level'] === '1'){
+                $level = 'Manager';
+            }
+            elseif($user['user_level'] === '2'){
+                $level = 'Assistant Manager';
+            }
+            elseif($user['user_level'] === '3'){
+                $level = 'Bookeeper';
+            }
             
             $result = $this->user->validate_signin_match($user, $this->input->post('password'));
             
@@ -51,11 +64,11 @@ class Users extends CI_Controller {
             {   
                 $is_admin = $this->user->validate_is_admin($username);
                 if(!empty($is_admin)){
-                    $this->session->set_userdata(array('user_id'=>$user['id'], 'level'=>$level, 'fullname'=>$fullname, 'auth' => true, 'page' => 'Dashboard'));
+                    $this->session->set_userdata(array('user_id'=>$user['id'], 'level'=>$level, 'fullname'=>$fullname, 'page' => 'Dashboard'));
                     redirect("dashboards");
                 }
                 else{
-                    $this->session->set_userdata(array('user_id'=>$user['id']));
+                    $this->session->set_userdata(array('user_id'=>$user['id'], 'level'=>$level, 'fullname'=>$fullname, 'page' => 'Dashboard'));
                     redirect("dashboards");
                 }
             }
@@ -81,6 +94,7 @@ class Users extends CI_Controller {
             $this->load->view('templates/topbar');   
             $this->load->view('admin/add_user');
             $this->load->view('templates/footer');
+            
         }
         else
         {
@@ -96,7 +110,9 @@ class Users extends CI_Controller {
             $this->load->view('templates/topbar');   
             $this->load->view('admin/userlist',$list);
             $this->load->view('templates/footer');
+            
         }
+        
     }
 
     public function process_registration() 
@@ -117,7 +133,8 @@ class Users extends CI_Controller {
         {
             $form_data = $this->input->post();
             $this->user->create_user($form_data);
-            
+            $this->email->creation_account($form_data);
+
             $this->session->set_flashdata('input_errors', 'User created Sucessfully');
             $this->session->set_userdata(array('page'=> 'User'));
             $this->load->view('templates/header');

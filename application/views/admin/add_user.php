@@ -42,6 +42,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="row">
                         <div class="col-md-4">
                             <div class="col-md-4 input-group input-group-outline my-1">
+                                <label class="form-label">Email</label>
+                                <input type="email" name="email" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="col-md-4 input-group input-group-outline my-1">
                                 <select name="userlevel" class="form-control" aria-label="Default select example">
                                     <option value="empty" selected>Select user level</option>
                                     <option value="0">Manager</option>

@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+$level = $this->session->userdata('level');
 ?>
     <div class="container-fluid py-4">
       <div class="row">
@@ -32,13 +33,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <tbody>
 <?php                   for($i=0; $i<count($list); $i++){
                         $create = date('m-d-Y', strtotime($list[$i]['created_at']));
-                        $recieved = date('m-d-Y', strtotime($list[$i]['delivered_at']));
+                        $recieved = date('m-d-Y', strtotime($list[$i]['released_at']));
 ?>                        <tr class="sticky-col first-col">
                             <td>
-                                <a href="/documents/view/<?=$list[$i]['id']?>" class="text-xxsm"><i class="fas fa-eye"></i></a> |
-                                <a href="/documents/edit/<?=$list[$i]['id']?>" class="text-xxsm"><i class="fas fa-pen"></i></a> |
+                                <a href="/documents/view/<?=$list[$i]['id']?>" class="text-xxsm"><i class="fas fa-eye"></i></a>
+<?php                           if($level === 'Admin' || $level === 'Bookeeper') {
+?>                              |
+                               <a href="/documents/edit/<?=$list[$i]['id']?>" class="text-xxsm"><i class="fas fa-pen"></i></a> 
+<?php                           }  
+                                if($level === 'Admin') {
+?>                                |
                                 <a href="/documents/delete/<?=$list[$i]['id']?>" onclick="return confirm('Are you sure you want to DELETE this?')" class="text-xxsm"><i class="fas fa-trash"></i></a>
-                            </td>
+<?php                           }
+?>                            </td>
                             <td>
                                 <div class="d-flex px-2">
                                     <div class="my-auto">
@@ -56,7 +63,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <p class="text-sm font-weight-bold mb-0"><?=$list[$i]['document_type']?></p>
                             </td>
                             <td>
-                                <p class="text-sm font-weight-bold mb-0"><?=$list[$i]['location']?></p>
+                                <p class="text-sm font-weight-bold mb-0">
+<?php 								if($list[$i]['location'] === '0'){
+                                        echo('Office');
+                                    }
+                                    elseif($list[$i]['location'] === '1'){
+                                        echo('ROD');
+                                    }
+                                    elseif($list[$i]['location'] === '2'){
+                                        echo('Treasury');
+                                    }
+                                    elseif($list[$i]['location'] === '3'){
+                                        echo('LTO');
+                                    }
+?>								  </p>
                             </td>
                             <td>
                                 <p class="text-sm font-weight-bold mb-0"><?=$list[$i]['recieved_by']?></p>

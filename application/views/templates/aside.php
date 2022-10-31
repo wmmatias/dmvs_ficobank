@@ -20,35 +20,39 @@ $level = $this->session->userdata('level');
                 <span class="nav-link-text ms-1">Dashboard</span>
             </a>
             </li>
-            <li class="nav-item">
+<?php       if($level === 'Admin') {
+?>            <li class="nav-item">
             <a <?= ($page === 'User') ? 'class="nav-link text-white active bg-gradient-primary""' : 'class="nav-link text-white"' ?> href="/dashboards/users">
                 <span class="nav-link-text ms-1">Users</span>
             </a>
             </li>
-            <li class="nav-item mt-3">
+<?php       }
+?>            <li class="nav-item mt-3">
             <h6 class="ps-4 ms-2 text-muted text-uppercase text-xs text-white font-weight-bolder opacity-8">Transactions</h6>
             </li>
-            <li class="nav-item">
+<?php       if($level === 'Admin' || $level === 'Bookeeper') {
+?>            <li class="nav-item">
             <a <?= ($page === 'Form') ? 'class="nav-link text-white active bg-gradient-primary""' : 'class="nav-link text-white"' ?> href="/dashboards/form">
                 <span class="nav-link-text ms-1">Forms</span>
             </a>
             </li>
-            <li class="nav-item">
+<?php       }
+?>            <li class="nav-item">
                 <a <?= ($page === 'Logs') ? 'class="nav-link text-white active bg-gradient-primary dropdown-toggle"' : 'class="nav-link text-white dropdown-toggle"' ?> href="#" role="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                     <span class="nav-link-text ms-1">Documents</span>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <li>
-                        <a class="nav-dropdown-item" href="/dashboards/history">Office</a>
+                        <a class="nav-dropdown-item" href="/dashboards/offices">Office</a>
                     </li>
                     <li>
-                        <a class="nav-dropdown-item" href="#">ROD</a>
+                        <a class="nav-dropdown-item" href="/dashboards/rod">ROD</a>
                     </li>
                     <li>
-                        <a class="nav-dropdown-item" href="#">Treasury</a>
+                        <a class="nav-dropdown-item" href="/dashboards/treasury">Treasury</a>
                     </li>
                     <li>
-                        <a class="nav-dropdown-item" href="#">LTO</a>
+                        <a class="nav-dropdown-item" href="/dashboards/lto">LTO</a>
                     </li>
                     <hr class="horizontal light mt-0 mb-2">
                 </ul>

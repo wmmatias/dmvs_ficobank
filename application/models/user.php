@@ -28,12 +28,14 @@ class User extends CI_Model {
 
     function create_user($user)
     {
+        
         $password = 'P@ssw0rd';
-        $query = "INSERT INTO Users (first_name, last_name, user_name, password, user_level,created_at,updated_at) VALUES (?,?,?,?,?,?,?)";
+        $query = "INSERT INTO Users (first_name, last_name, user_name, email, password, user_level,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?)";
         $values = array(
             $this->security->xss_clean($user['firstname']), 
             $this->security->xss_clean($user['lastname']), 
             $this->security->xss_clean($user['username']), 
+            $this->security->xss_clean($user['email']), 
             md5($this->security->xss_clean($password)),
             $this->security->xss_clean($user['userlevel']), 
             $this->security->xss_clean(date("Y-m-d, H:i:s")),
@@ -68,7 +70,7 @@ class User extends CI_Model {
     }
     function validate_is_admin($user_name) 
     {
-        $query = "SELECT user_level FROM users WHERE user_name = ? and user_level = 0";
+        $query = "SELECT user_level FROM users WHERE user_name = ?";
         return $this->db->query($query, $this->security->xss_clean($user_name))->result_array()[0];
     }
 
@@ -77,8 +79,9 @@ class User extends CI_Model {
         $this->form_validation->set_error_delimiters('<div>','</div>');
         $this->form_validation->set_rules('firstname', 'First Name', 'required');
         $this->form_validation->set_rules('lastname', 'Last Name', 'required');   
-        $this->form_validation->set_rules('username', 'User Name', 'required');        
-        $this->form_validation->set_rules('userlevel', 'User Level', 'required');
+        $this->form_validation->set_rules('username', 'User Name', 'required');  
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_emails');        
+        $this->form_validation->set_rules('userlevel', 'User Level', 'required|in_list[0,1,2]');
         
         if(!$this->form_validation->run()) {
             return validation_errors();
@@ -86,13 +89,15 @@ class User extends CI_Model {
         else if($this->get_user_add($username)) {
             return "User name already taken.";
         }
+    
     }
 
     public function validate_registration_user() {
         $this->form_validation->set_error_delimiters('<div>','</div>');
         $this->form_validation->set_rules('firstname', 'First Name', 'required');
         $this->form_validation->set_rules('lastname', 'Last Name', 'required');   
-        $this->form_validation->set_rules('username', 'User Name', 'required');        
+        $this->form_validation->set_rules('username', 'User Name', 'required');  
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_emails');        
         $this->form_validation->set_rules('userlevel', 'User Level', 'required');
 
         if(!$this->form_validation->run()) {
@@ -105,7 +110,7 @@ class User extends CI_Model {
 
     function get_user_id($id)
     {
-        $query = "SELECT id, first_name, last_name, user_name, user_level FROM users WHERE id=?";
+        $query = "SELECT id, first_name, last_name, email, user_name, user_level FROM users WHERE id=?";
         return $this->db->query($query, $this->security->xss_clean($id))->result_array()[0];
     }
 
@@ -114,7 +119,7 @@ class User extends CI_Model {
         $this->form_validation->set_error_delimiters('<div>','</div>');
         $this->form_validation->set_rules('first_name', 'First Name', 'required|alpha');
         $this->form_validation->set_rules('last_name', 'Last Name', 'required|alpha');   
-        $this->form_validation->set_rules('email', 'Email', 'required|valid_email'); 
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_emails'); 
         
         if(!$this->form_validation->run()) {
             return validation_errors();

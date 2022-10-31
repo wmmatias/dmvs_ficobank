@@ -66,11 +66,13 @@ $route['dashboards/edit/(:any)/validate'] = 'dashboards/process_user_modificatio
 
 $route['dashboards/form'] = 'dashboards/form';
 $route['dashboards/logs'] = 'dashboards/logs';
-$route['dashboards/history'] = 'dashboards/history';
+$route['dashboards/offices'] = 'dashboards/history';
 
 $route['documents/create'] = 'documents/create';
+$route['documents/add_location'] = 'documents/add_location';
 $route['documents/view/(:any)'] = 'documents/view/$1';
 $route['documents/edit/(:any)'] = 'documents/edit/$1';
-$route['documents/edit/(:any)/validate'] = 'documents/process_user_modification';
+$route['documents/release'] = 'documents/release';
+$route['documents/update'] = 'documents/update';
 
 

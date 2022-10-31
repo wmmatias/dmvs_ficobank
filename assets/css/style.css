@@ -18,16 +18,53 @@
     font-size: x-large;
 }
 
-@media (max-width: 500px){
+.logo{
+    width: 200px;
+}
+.view_docs p, .view_docs h6{
+    color: black;
+}
+.details p{
+    line-height: 10px;
+    color: black;
+}
+a img{
+    display: none;
+}
+
+#show_form, #hide_form, #release{
+    border: 0px;
+}
+
+@media (max-width: 50px){
     .view_docs .form-group label{
         font-size: medium;
     }
 }
 
 @media print{
-    .view_docs .form-group label{
-        font-size: medium;
+    *, h6, #type{
+        color: black;
+    }
+    p{
+        line-height: 10px;
+    }
+    
+    a img{
+        border-radius: 10px;
+        display: inline-block;
+        position: absolute;
+        top: 13px;
+        right: 13px;
+    }
+    .view_docs p{
+        display: block;
+    }
+    .fixed-plugin-button, nav, .fa {
+        display: none;
     }
 }
 
-
+/* *{
+    outline: 1px dashed black;
+} */

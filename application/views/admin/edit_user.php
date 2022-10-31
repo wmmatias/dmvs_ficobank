@@ -41,11 +41,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                     <div class="row">
                         <div class="col-md-4">
+                            <div class="col-md-4 input-group input-group-outline my-1 is-focused">
+                                <label class="form-label">Email</label>
+                                <input type="text" name="email" value="<?=$list['email']?>" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
                             <div class="col-md-4 input-group input-group-outline my-1">
                                 <select name="userlevel" class="form-control" aria-label="Default select example">
-                                    <option value="0" <?=($list['user_level'] === '0' ? 'selected' : '')?>>Manager</option>
-                                    <option value="1" <?=($list['user_level'] === '1' ? 'selected' : '')?>>Assistant Manager</option>
-                                    <option value="2" <?=($list['user_level'] === '2' ? 'selected' : '')?>>Bookeeper</option>
+                                    <option value="0" <?=($list['user_level'] === '0' ? 'selected' : '')?>>Admin</option>
+                                    <option value="1" <?=($list['user_level'] === '1' ? 'selected' : '')?>>Manager</option>
+                                    <option value="2" <?=($list['user_level'] === '2' ? 'selected' : '')?>>Assistant Manager</option>
+                                    <option value="3" <?=($list['user_level'] === '3' ? 'selected' : '')?>>Bookeeper</option>
                                 </select>
                             </div>
                         </div>

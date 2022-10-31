@@ -3,8 +3,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Dashboards extends CI_Controller {
 
-    public function index() 
+    public function index()
     {   
+        $newdata = $this->document->get_all_docs_today();
+        $office = $this->document->get_all_docs_offices();
+        $rod = $this->document->get_all_docs_rod();
+        $treasury = $this->document->get_all_docs_treasury();
+        $lto = $this->document->get_all_docs_lto();
+        $data = array('list'=>$newdata, 'offices'=> $office, 'rod'=> $rod, 'treasury'=> $treasury, 'lto'=> $lto);
         $current_user_id = $this->session->userdata('user_id');
         if(!$current_user_id) {
             redirect("users");
@@ -14,7 +20,7 @@ class Dashboards extends CI_Controller {
             $this->load->view('templates/header');
             $this->load->view('templates/aside');
             $this->load->view('templates/topbar');   
-            $this->load->view('admin/dashboard');
+            $this->load->view('admin/dashboard', $data);
             $this->load->view('templates/footer');
         }
         
@@ -114,7 +120,7 @@ class Dashboards extends CI_Controller {
 
     public function history() 
     {   
-        $result = $this->document->get_all_docs();
+        $result = $this->document->get_all_docs_offices();
         $details = array('list'=>$result);
         $current_user_id = $this->session->userdata('user_id');
         if(!$current_user_id) {
@@ -132,21 +138,64 @@ class Dashboards extends CI_Controller {
         
     }
 
-    // public function messages() 
-    // {   
-    //     $current_user_id = $this->session->userdata('user_id');
-    //     if(!$current_user_id) {
-    //         redirect("users");
-    //     } 
-    //     else {
-    //         $this->session->set_userdata(array('page'=> 'Messages'));
-    //         $this->load->view('templates/header');
-    //         $this->load->view('templates/aside');
-    //         $this->load->view('templates/topbar');   
-    //         $this->load->view('admin/messages');
-    //         $this->load->view('templates/footer');
-    //     }
+    public function rod() 
+    {   
+        $result = $this->document->get_all_docs_rod();
+        $details = array('list'=>$result);
+        $current_user_id = $this->session->userdata('user_id');
+        if(!$current_user_id) {
+            redirect("users");
+        } 
+        else {
+            $this->session->set_userdata(array('page'=> 'Logs'));
+            $this->load->view('templates/header');
+            $this->load->view('templates/aside');
+            $this->load->view('templates/topbar');   
+            $this->load->view('admin/logs',$details);
+            $this->load->view('templates/footer');
+        }
         
         
-    // }
+    }
+
+    public function treasury() 
+    {   
+        $result = $this->document->get_all_docs_treasury();
+        $details = array('list'=>$result);
+        $current_user_id = $this->session->userdata('user_id');
+        if(!$current_user_id) {
+            redirect("users");
+        } 
+        else {
+            $this->session->set_userdata(array('page'=> 'Logs'));
+            $this->load->view('templates/header');
+            $this->load->view('templates/aside');
+            $this->load->view('templates/topbar');   
+            $this->load->view('admin/logs',$details);
+            $this->load->view('templates/footer');
+        }
+        
+        
+    }
+
+    public function lto() 
+    {   
+        $result = $this->document->get_all_docs_lto();
+        $details = array('list'=>$result);
+        $current_user_id = $this->session->userdata('user_id');
+        if(!$current_user_id) {
+            redirect("users");
+        } 
+        else {
+            $this->session->set_userdata(array('page'=> 'Logs'));
+            $this->load->view('templates/header');
+            $this->load->view('templates/aside');
+            $this->load->view('templates/topbar');   
+            $this->load->view('admin/logs',$details);
+            $this->load->view('templates/footer');
+        }
+        
+        
+    }
+
 }

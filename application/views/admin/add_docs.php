@@ -42,17 +42,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">
-                            <div class="col-md-4 input-group input-group-outline my-1">
-                                <label class="form-label">Email</label>
-                                <input type="email" name="email" class="form-control">
-                            </div>
-                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="text-center">
-                                <input type="hidden" name="created_by" value="<?=$this->session->userdata('fullname')?>">
+                                <input type="hidden" name="user_id" value="<?=$this->session->userdata('user_id')?>">
                                 <button type="submit" class="btn btn-success w-100 my-4 mb-2">Add Docs</button>
                             </div>
                         </div>

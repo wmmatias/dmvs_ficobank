@@ -40,11 +40,12 @@ class Documents extends CI_Controller {
         else
         {
             $form_data = $this->input->post();
+            $user_details = $this->user->get_user_id($form_data['user_id']);
             $this->document->create_document($form_data,$docnum);
             $id = $this->document->get_lastdoc_id();
             $this->document->initialized_location($id);
             
-            $this->email->creation_email($form_data);
+            $this->email->creation_document($form_data,$user_details);
 
             $this->session->set_flashdata('input_errors', 'Docs added to monitoring successfully');
             $this->session->set_userdata(array('page'=> 'Form'));
@@ -53,6 +54,34 @@ class Documents extends CI_Controller {
             $this->load->view('templates/topbar');   
             $this->load->view('admin/add_docs');
             $this->load->view('templates/footer');
+        }
+    }
+
+    
+    public function add_location() 
+    {   
+        $current_user_id = $this->session->userdata('user_id');
+        $form_data = $this->input->post();
+        $user_details = $this->user->get_user_id($current_user_id);
+        $result = $this->document->validate_loc($form_data);
+        $id = $form_data['id'];
+
+        if($result!='success')
+        {
+            $this->session->set_flashdata('location_errors', $result);
+            $this->session->set_userdata(array('page'=> 'Form'));
+            redirect("documents/edit/$id");
+        }
+        else
+        {
+            $form_data = $this->input->post();
+            $this->document->setnew_location($form_data);
+            
+            $this->email->add_location($form_data,$user_details);
+
+            $this->session->set_flashdata('location_errors', 'new location added successfully');
+            $this->session->set_userdata(array('page'=> 'Form'));
+            redirect("documents/edit/$id");
         }
     }
 
@@ -100,6 +129,43 @@ class Documents extends CI_Controller {
         $this->document->delete_loc_by_docid($id);
         $this->document->delete_doc_by_id($id);
         redirect('/dashboards/history');
+    }
+    
+    public function release() 
+    {  
+        $current_user_id = $this->session->userdata('user_id');
+        $form_data = $this->input->post();
+        $id = $form_data['document_id'];
+        $user_details = $this->user->get_user_id($current_user_id);
+        $this->document->release_loc($form_data);
+
+        $this->email->release_location($form_data,$user_details);
+
+        redirect("documents/edit/$id");
+    }
+    
+    public function update() 
+    {  
+        $result = $this->document->update_validation();
+        $form_data = $this->input->post();
+        $id = $form_data['id'];
+
+        if($result!='success')
+        {
+            $this->session->set_flashdata('input_errors', $result);
+            $this->session->set_userdata(array('page'=> 'Form'));
+            redirect("documents/edit/$id");
+        }
+        else
+        {
+            $this->document->update_doc($form_data);
+
+            // $this->email->creation_document($form_data,$user_details);
+
+            $this->session->set_flashdata('input_errors', 'updated successfully');
+            $this->session->set_userdata(array('page'=> 'Form'));
+            redirect("documents/edit/$id");
+        }
     }
 
 }
