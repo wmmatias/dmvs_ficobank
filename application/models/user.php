@@ -20,6 +20,16 @@ class User extends CI_Model {
         return $this->db->query($query)->result_array();
     }
 
+    function get_all_userlogs()
+    { 
+        $query = "SELECT logs.id, logs.activity, logs.created_by, logs.created_at, users.first_name, users.last_name
+        FROM dmvs_ficobank.logs
+        LEFT JOIN dmvs_ficobank.users
+        ON logs.created_by = users.id
+        ORDER BY logs.created_by DESC";
+        return $this->db->query($query)->result_array();
+    }
+
     public function delete_user_id($id) {
         return $this->db->query("DELETE FROM users WHERE id = ?", 
         array(
@@ -28,12 +38,12 @@ class User extends CI_Model {
 
     function create_user($user)
     {
-        
-        $password = 'P@ssw0rd';
+        $year = date('Y');
+        $password = 'Ficobank@'.$year;
         $query = "INSERT INTO Users (first_name, last_name, user_name, email, password, user_level,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?)";
         $values = array(
-            $this->security->xss_clean($user['firstname']), 
-            $this->security->xss_clean($user['lastname']), 
+            $this->security->xss_clean(ucwords(strtolower($user['firstname']))), 
+            $this->security->xss_clean(ucwords(strtolower($user['lastname']))), 
             $this->security->xss_clean($user['username']), 
             $this->security->xss_clean($user['email']), 
             md5($this->security->xss_clean($password)),
@@ -171,6 +181,17 @@ class User extends CI_Model {
             md5($this->security->xss_clean($form_data['password'])), 
             $this->security->xss_clean(date("Y-m-d, H:i:s")),
             $this->security->xss_clean($form_data['id'])));
+    }
+
+    public function log($id)
+    { 
+        $query = "INSERT INTO logs (activity, created_by, created_at) VALUES (?,?,?)";
+        $values = array(
+            $this->security->xss_clean($this->session->userdata('activity')), 
+            $this->security->xss_clean($id), 
+            $this->security->xss_clean(date("Y-m-d, H:i:s"))); 
+        
+        return $this->db->query($query, $values);
     }
 
     

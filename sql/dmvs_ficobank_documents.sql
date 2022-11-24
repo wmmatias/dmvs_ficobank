@@ -24,19 +24,27 @@ DROP TABLE IF EXISTS `documents`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `documents` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `doc_number` varchar(245) DEFAULT NULL,
-  `fullname` varchar(255) DEFAULT NULL,
-  `loan_type` varchar(255) DEFAULT NULL,
+  `folder_id` int(11) NOT NULL,
+  `document_no` varchar(255) DEFAULT NULL,
   `document_type` varchar(255) DEFAULT NULL,
-  `created_by` varchar(255) DEFAULT NULL,
+  `user_id` int(11) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`,`user_id`),
-  KEY `fk_documents_users1_idx` (`user_id`),
-  CONSTRAINT `fk_documents_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`id`,`folder_id`,`user_id`),
+  KEY `fk_documents_folders1_idx` (`folder_id`,`user_id`),
+  CONSTRAINT `fk_documents_folders1` FOREIGN KEY (`folder_id`, `user_id`) REFERENCES `folders` (`id`, `user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `documents`
+--
+
+LOCK TABLES `documents` WRITE;
+/*!40000 ALTER TABLE `documents` DISABLE KEYS */;
+INSERT INTO `documents` VALUES (3,23,'123456','1',1,'2022-11-23 01:13:34','2022-11-23 01:13:34'),(4,23,'123456','0',1,'2022-11-23 01:20:30','2022-11-23 01:20:30'),(5,23,'123456','1',1,'2022-11-23 01:31:03','2022-11-23 01:31:03'),(6,23,'123456','0',1,'2022-11-23 01:31:57','2022-11-23 01:31:57'),(10,32,'123456','0',1,'2022-11-23 02:19:52','2022-11-23 02:19:52'),(11,34,'12345612','0',1,'2022-11-23 02:36:19','2022-11-23 02:36:19'),(12,36,'12345612123222','0',1,'2022-11-23 10:00:42','2022-11-23 10:00:42'),(13,36,'123456www12','1',1,'2022-11-23 10:00:46','2022-11-23 10:00:46'),(14,40,'12345612123222as','0',1,'2022-11-23 13:08:55','2022-11-23 13:08:55'),(18,45,'DC123GT1233','1',1,'2022-11-23 19:05:45','2022-11-23 19:05:45'),(19,47,'DC123GT1233','1',1,'2022-11-23 22:57:45','2022-11-23 22:57:45'),(20,48,'DC123GT1233','1',1,'2022-11-23 22:58:23','2022-11-23 22:58:23'),(21,49,'DC123GT1233','0',1,'2022-11-23 22:59:47','2022-11-23 22:59:47'),(22,52,'DC123GT1233','0',1,'2022-11-23 23:07:27','2022-11-23 23:07:27'),(23,53,'DC123GT1233','1',1,'2022-11-23 23:11:24','2022-11-23 23:11:24'),(24,54,'DC123GT1233','0',1,'2022-11-23 23:12:29','2022-11-23 23:12:29'),(25,55,'DC123GT1233','1',1,'2022-11-23 23:15:07','2022-11-23 23:15:07'),(26,56,'DC123GT1233','0',1,'2022-11-23 23:18:59','2022-11-23 23:18:59'),(27,57,'DC123GT1233','0',1,'2022-11-23 23:21:59','2022-11-23 23:21:59'),(28,58,'DC123GT1233','1',1,'2022-11-23 23:23:36','2022-11-23 23:23:36'),(29,59,'123456','0',1,'2022-11-23 23:25:44','2022-11-23 23:25:44'),(30,59,'DC123GT1233','1',1,'2022-11-23 23:25:56','2022-11-23 23:25:56'),(31,63,'DC123GT1233','0',1,'2022-11-23 23:28:56','2022-11-23 23:28:56'),(32,63,'123456','0',1,'2022-11-23 23:29:52','2022-11-23 23:29:52'),(33,64,'DC123GT1233','0',1,'2022-11-23 23:32:48','2022-11-23 23:32:48'),(34,65,'DC123GT1233','0',1,'2022-11-23 23:34:49','2022-11-23 23:34:49');
+/*!40000 ALTER TABLE `documents` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -47,4 +55,4 @@ CREATE TABLE `documents` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-10-31 11:05:22
+-- Dump completed on 2022-11-24 16:47:38

@@ -26,6 +26,16 @@ $level = $this->session->userdata('level');
                 <span class="nav-link-text ms-1">Users</span>
             </a>
             </li>
+            <li class="nav-item">
+            <a <?= ($page === 'User Logs') ? 'class="nav-link text-white active bg-gradient-primary""' : 'class="nav-link text-white"' ?> href="/dashboards/users_logs">
+                <span class="nav-link-text ms-1">Users Logs</span>
+            </a>
+            </li>
+            <li class="nav-item">
+            <a <?= ($page === 'Export') ? 'class="nav-link text-white active bg-gradient-primary""' : 'class="nav-link text-white"' ?> href="/dashboards/export_backup" onclick="return confirm('Are you sure you want to backup the DataBase?')">
+                <span class="nav-link-text ms-1">Export Database</span>
+            </a>
+            </li>
 <?php       }
 ?>            <li class="nav-item mt-3">
             <h6 class="ps-4 ms-2 text-muted text-uppercase text-xs text-white font-weight-bolder opacity-8">Transactions</h6>
@@ -57,17 +67,32 @@ $level = $this->session->userdata('level');
                     <hr class="horizontal light mt-0 mb-2">
                 </ul>
             </li>
-            <!-- <li class="nav-item">
-            <a <?= ($page === 'Messages') ? 'class="nav-link text-white active bg-gradient-primary""' : 'class="nav-link text-white"' ?> href="/dashboards/messages">
-                <span class="nav-link-text ms-1">Messages</span>
+            <li class="nav-item">
+            <a <?= ($page === 'Return') ? 'class="nav-link text-white active bg-gradient-primary""' : 'class="nav-link text-white"' ?> href="/dashboards/return_doc">
+                <span class="nav-link-text ms-1">Returned Document</span>
             </a>
-            </li> -->
+            </li>
+            <li class="nav-item">
+            <a <?= ($page === 'Block') ? 'class="nav-link text-white active bg-gradient-primary""' : 'class="nav-link text-white"' ?> href="/dashboards/block">
+                <span class="nav-link-text ms-1">Block Document</span>
+            </a>
+            </li>
         </ul>
         </div>
         
         <div class="sidenav-footer position-absolute w-100 bottom-0 ">
             <div class="mx-3">
-                <p class="text-muted ms-2 mb-5 text-white fw-bold nav-link">login as: <?=$level?></p>
+                <p class="text-muted ms-2 mb-5 text-white fw-bold nav-link">login as: 
+<?php           if($this->session->userdata('auth')){
+?>                    Admin
+<?php           }
+                elseif($this->session->userdata('mgr')){
+?>                    <br>Manager / Asst. Manager
+<?php           }
+                elseif($this->session->userdata('bkpr')){
+?>                    Bookeeper
+<?php           }
+?>                </p>
             </div>
         </div>
     </aside>

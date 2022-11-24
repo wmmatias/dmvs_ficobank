@@ -6,17 +6,17 @@ class Dashboards extends CI_Controller {
     public function index()
     {   
         $newdata = $this->document->get_all_docs_today();
-        $office = $this->document->get_all_docs_offices();
-        $rod = $this->document->get_all_docs_rod();
-        $treasury = $this->document->get_all_docs_treasury();
-        $lto = $this->document->get_all_docs_lto();
+        $office = $this->document->get_count_office();
+        $rod = $this->document->get_count_rod();
+        $treasury = $this->document->get_count_treasury();
+        $lto = $this->document->get_count_lto();
         $data = array('list'=>$newdata, 'offices'=> $office, 'rod'=> $rod, 'treasury'=> $treasury, 'lto'=> $lto);
         $current_user_id = $this->session->userdata('user_id');
         if(!$current_user_id) {
             redirect("users");
         } 
         else {
-            $this->session->set_userdata(array('page'=> 'Dashboard'));
+            $this->session->set_userdata(array('page'=> 'Dashboard', 'location'=>'office'));
             $this->load->view('templates/header');
             $this->load->view('templates/aside');
             $this->load->view('templates/topbar');   
@@ -40,6 +40,25 @@ class Dashboards extends CI_Controller {
             $this->load->view('templates/aside');
             $this->load->view('templates/topbar');   
             $this->load->view('admin/userlist',$list);
+            $this->load->view('templates/footer');
+        }
+        
+    }
+
+    public function users_logs() 
+    {   
+        $current_user_id = $this->session->userdata('user_id');
+        if(!$current_user_id) {
+            redirect("users");
+        } 
+        else {
+            $result = $this->user->get_all_userlogs();
+            $list = array('list' => $result);
+            $this->session->set_userdata(array('page'=> 'User Logs'));
+            $this->load->view('templates/header');
+            $this->load->view('templates/aside');
+            $this->load->view('templates/topbar');   
+            $this->load->view('admin/userlog',$list);
             $this->load->view('templates/footer');
         }
         
@@ -127,11 +146,11 @@ class Dashboards extends CI_Controller {
             redirect("users");
         } 
         else {
-            $this->session->set_userdata(array('page'=> 'Logs'));
+            $this->session->set_userdata(array('page'=> 'Logs', 'location'=>'office'));
             $this->load->view('templates/header');
             $this->load->view('templates/aside');
             $this->load->view('templates/topbar');   
-            $this->load->view('admin/logs',$details);
+            $this->load->view('admin/logs', $details);
             $this->load->view('templates/footer');
         }
         
@@ -147,7 +166,7 @@ class Dashboards extends CI_Controller {
             redirect("users");
         } 
         else {
-            $this->session->set_userdata(array('page'=> 'Logs'));
+            $this->session->set_userdata(array('page'=> 'Logs', 'location'=>'rod'));
             $this->load->view('templates/header');
             $this->load->view('templates/aside');
             $this->load->view('templates/topbar');   
@@ -167,7 +186,7 @@ class Dashboards extends CI_Controller {
             redirect("users");
         } 
         else {
-            $this->session->set_userdata(array('page'=> 'Logs'));
+            $this->session->set_userdata(array('page'=> 'Logs', 'location'=>'treasury'));
             $this->load->view('templates/header');
             $this->load->view('templates/aside');
             $this->load->view('templates/topbar');   
@@ -187,7 +206,7 @@ class Dashboards extends CI_Controller {
             redirect("users");
         } 
         else {
-            $this->session->set_userdata(array('page'=> 'Logs'));
+            $this->session->set_userdata(array('page'=> 'Logs', 'location'=>'lto'));
             $this->load->view('templates/header');
             $this->load->view('templates/aside');
             $this->load->view('templates/topbar');   
@@ -197,5 +216,61 @@ class Dashboards extends CI_Controller {
         
         
     }
+
+    public function return_doc() 
+    {   
+        $result = $this->document->get_all_docs_return();
+        $details = array('list'=>$result);
+        $current_user_id = $this->session->userdata('user_id');
+        if(!$current_user_id) {
+            redirect("users");
+        } 
+        else {
+            $this->session->set_userdata(array('page'=> 'Logs', 'location'=>'return'));
+            $this->load->view('templates/header');
+            $this->load->view('templates/aside');
+            $this->load->view('templates/topbar');   
+            $this->load->view('admin/document_status',$details);
+            $this->load->view('templates/footer');
+        }
+        
+        
+    }
+
+    public function block() 
+    {   
+        $result = $this->document->get_all_docs_block();
+        $details = array('list'=>$result);
+        $current_user_id = $this->session->userdata('user_id');
+        if(!$current_user_id) {
+            redirect("users");
+        } 
+        else {
+            $this->session->set_userdata(array('page'=> 'Logs', 'location'=>'block'));
+            $this->load->view('templates/header');
+            $this->load->view('templates/aside');
+            $this->load->view('templates/topbar');   
+            $this->load->view('admin/document_status',$details);
+            $this->load->view('templates/footer');
+        }
+        
+        
+    }
+    
+    public function export_backup(){
+        // Load the DB utility class
+         $this->load->dbutil();
+         
+         // Backup your entire database and assign it to a variable
+         $backup = $this->dbutil->backup();
+         
+         // Load the file helper and write the file to your server
+         $this->load->helper('file');
+         write_file(VIEWPATH.'/assets/files/db_backup/ficobank_'.date('mdY').'_backup.gz', $backup);
+         
+         // Load the download helper and send the file to your desktop
+         $this->load->helper('download');
+         force_download('ficobank_'.date('mdY').'_backup.gz', $backup);
+     }
 
 }

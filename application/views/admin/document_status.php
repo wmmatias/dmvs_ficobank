@@ -18,12 +18,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <tr>
                         <!-- <th class="sticky-col first-col text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Actions</th> -->
                         <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">System Generated#</th>
-                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Physical Doc.#</th>
-                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Type of Document</th>
                         <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Full Name</th>
                         <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Type of Loan</th>
-                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Recieved by</th>
-                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Position</th>
+                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">In charge</th>
                         <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Date</th>
                         </tr>
                     </thead>
@@ -36,13 +33,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         else{
                             foreach($list as $data){    
 ?>                       <tr class="sticky-col first-col">
-                            <!-- <td>
-                               <a href="/documents/edit/<?=$data['id']?>" class="text-xxsm" data-bs-toggle="tooltip" data-bs-placement="top" title="Move Document"><i class="fa-solid fa-truck-fast"></i></a> 
-                               |
-                                <a href="/documents/delete/<?=$data['id']?>" onclick="return confirm('Are you sure you want to BLOCK this Document?')" class="text-xxsm" data-bs-toggle="tooltip" data-bs-placement="top" title="Block"><i class="fas fa-ban"></i></a>
-                                |
-                                <a href="/documents/return/<?=$data['id']?>" onclick="return confirm('Are you sure you want to Return this Document?')" class="text-xxsm" data-bs-toggle="tooltip" data-bs-placement="top" title="Return"><i class="fa-solid fa-boxes-packing"></i></a>
-                           </td> -->
                             <td>
                                 <div class="d-flex px-2">
                                     <div class="my-auto">
@@ -51,12 +41,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         </a>
                                     </div>
                                 </div>
-                            </td>
-                            <td>
-                                <p class="text-sm font-weight-bold mb-0"><?=$data['physical_no']?></p>
-                            </td>
-                            <td>
-                                <p class="text-sm font-weight-bold mb-0"><?=($data['document_type'] === '0' ? 'Land Title' : 'OR/CR')?></p>
                             </td>
                             <td>
                                 <p class="text-sm font-weight-bold mb-0"><?=$data['fullname']?></p>
@@ -78,13 +62,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?>							    </p>
                             </td>
                             <td>
-                                <p class="text-sm font-weight-bold mb-0"><?=$data['staff_name']?></p>
+                                <p class="text-sm font-weight-bold mb-0"><?=$data['first_name'].' '.$data['last_name']?></p>
                             </td>
                             <td>
-                                <p class="text-sm font-weight-bold mb-0"><?=$data['position']?></p>
-                            </td>
-                            <td>
-                                <p class="text-sm font-weight-bold mb-0"><?=date('m-d-Y', strtotime($data['document_history']))?></p> 
+                                <p class="text-sm font-weight-bold mb-0"><?=date('m-d-Y', strtotime($data['created_at']))?></p> 
                             </td>
                         </tr>
 <?php                       }

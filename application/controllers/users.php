@@ -28,6 +28,8 @@ class Users extends CI_Controller {
 
     public function logoff() 
     {
+        $this->session->set_userdata('activity', ''.$this->session->userdata('fullname').' successfully logged out');
+        $this->user->log($this->session->userdata('user_id'));
         $this->session->sess_destroy();
         redirect("/");   
     }
@@ -49,12 +51,9 @@ class Users extends CI_Controller {
                 $level = 'Admin';
             }
             elseif($user['user_level'] === '1'){
-                $level = 'Manager';
+                $level = 'Manager / Asst. Manager';
             }
             elseif($user['user_level'] === '2'){
-                $level = 'Assistant Manager';
-            }
-            elseif($user['user_level'] === '3'){
                 $level = 'Bookeeper';
             }
             
@@ -64,12 +63,27 @@ class Users extends CI_Controller {
             {   
                 $is_admin = $this->user->validate_is_admin($username);
                 if(!empty($is_admin)){
-                    $this->session->set_userdata(array('user_id'=>$user['id'], 'level'=>$level, 'fullname'=>$fullname, 'page' => 'Dashboard'));
-                    redirect("dashboards");
+                    if($is_admin['user_level'] === '0'){
+                        $this->session->set_userdata(array('user_id'=>$user['id'], 'level'=>$level, 'fullname'=>$fullname, 'page' => 'Dashboard', 'auth'=> TRUE));
+                        $this->session->set_userdata('activity', ''.$fullname.' successfully logged in');
+                        $this->user->log($user['id']);
+                        redirect("dashboards");
+                    }
+                    elseif($is_admin['user_level'] === '1'){
+                        $this->session->set_userdata(array('user_id'=>$user['id'], 'level'=>$level, 'fullname'=>$fullname, 'page' => 'Dashboard', 'mgr'=> TRUE));
+                        $this->session->set_userdata('activity', ''.$fullname.' successfully logged in');
+                        $this->user->log($user['id']);
+                        redirect("dashboards");
+                    }
+                    elseif($is_admin['user_level'] === '2'){
+                        $this->session->set_userdata(array('user_id'=>$user['id'], 'level'=>$level, 'fullname'=>$fullname, 'page' => 'Dashboard', 'bkpr'=> TRUE));
+                        $this->session->set_userdata('activity', ''.$fullname.' successfully logged in');
+                        $this->user->log($user['id']);
+                        redirect("dashboards");
+                    }
                 }
                 else{
-                    $this->session->set_userdata(array('user_id'=>$user['id'], 'level'=>$level, 'fullname'=>$fullname, 'page' => 'Dashboard'));
-                    redirect("dashboards");
+                    redirect("/");
                 }
             }
             else 
@@ -117,6 +131,7 @@ class Users extends CI_Controller {
 
     public function process_registration() 
     {   
+        $form_data = $this->input->post();
         $username = $this->input->post('username');
         $result = $this->user->validate_registration($username);
         if($result!=null)

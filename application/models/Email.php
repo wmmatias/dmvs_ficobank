@@ -5,22 +5,22 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 class Email extends CI_Model {
 
-    function creation_document($form_data,$user_details)
+    function creation_document($user_details)
     { 
-        //form data
-        $fullname = $this->security->xss_clean($form_data['fullname']);
+        $ln = $this->session->userdata('loan_type');
+        $fullname = $this->security->xss_clean(ucwords(strtolower($this->session->userdata('fullname'))));
         $agent = $this->security->xss_clean($user_details['first_name']. ' '. $user_details['last_name']);
-        $to = $this->security->xss_clean($user_details['email']); 
-        $loan = $this->security->xss_clean($form_data['typeofloan']);
-        $documents = $this->security->xss_clean($form_data['typeofdocs']);
+        $to = ($this->security->xss_clean($user_details['email'])); 
+        $loan = $this->security->xss_clean($ln === '0' ? 'Agricultural Loan':($ln === '1' ? 'Commercial Loan':($ln === '2' ? 'Todo-Ani Loan':($ln === '3' ? 'Farm Machienery Loan': ''))));
         $subject = $this->security->xss_clean($fullname. ' ' . $loan.' has been added');
+        $doc_num = $this->security->xss_clean($this->session->userdata('doc_num'));
         $from = $this->security->xss_clean('ficobank7@gmail.com');
         $body = '
         <p>Good day! '.$agent.',</p>
         <p>You added the document successfully</p>
+        <p>Document No.: '. $doc_num .'</p>
         <p>Client Name: '. $fullname .'</p>
         <p>loan: '. $loan .'</p>
-        <p>Documents: '. $documents .'</p>
         </br>
         <p>keep this as your transaction receipt</p>
         </br>
@@ -164,27 +164,28 @@ class Email extends CI_Model {
     function add_location ($form_data,$user_details)
     {   
         $location = '';
-        if($form_data['location'] === '0'){
+        if($form_data['location'] === '1'){
             $location = 'Offices';
         }
-        elseif($form_data['location'] === '1'){
+        elseif($form_data['location'] === '2'){
             $location = 'ROD';
         }
-        elseif($form_data['location'] === '2'){
+        elseif($form_data['location'] === '3'){
             $location = 'Treasury';
         }
-        elseif($form_data['location'] === '3'){
+        elseif($form_data['location'] === '4'){
             $location = 'LTO';
         }
-        //form data
+        $status = ($form_data['status'] ==='0' ? 'Recieve' : ($form_data['status'] ==='1' ? 'Release' : ($form_data['status'] ==='2' ? 'Deliver' :'')));
+        $personnel = $form_data['recieved_by'];
         $doc_number = $this->security->xss_clean($form_data['doc_number']);
         $agent = $this->security->xss_clean($user_details['first_name']. ' '. $user_details['last_name']);
         $to = $this->security->xss_clean($user_details['email']); 
-        $subject = $this->security->xss_clean('Document moved');
+        $subject = $this->security->xss_clean('Document update');
         $from = $this->security->xss_clean('ficobank7@gmail.com');
         $body = '
         <p>Good day! '.$agent.',</p>
-        <p>The new location of document ' .$doc_number.' is '. $location.'</p>
+        <p>The document ' .$doc_number.' is '. $status.' by '.$personnel.' in '.$location.'</p>
         </br>
         <p>keep this as your transaction receipt</p>
         </br>

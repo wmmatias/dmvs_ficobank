@@ -16,5 +16,32 @@ $(document).ready( function () {
         $('#hide_form').hide();
         $('#show_form').show();
     });
+
+    $('#add_docs').submit(function() {
+        $('#spin').show();
+        $('#spin').css('visibility', 'visible');
+    });
+
+    $('#add_docs').submit(function() {
+        if ($('#add_docsbtn').is(':disabled')) {
+            $('#add_docsbtn').removeAttr('disabled');
+        } else {
+            $('#add_docsbtn').attr('disabled', 'disabled');
+        }
+    });
+
+    $('#add_docs1').submit(function() {
+        $('#spin1').show();
+        $('#spin1').css('visibility', 'visible');
+    });
+
+    $('#add_docs1').submit(function() {
+        if ($('#add_docsbtn1').is(':disabled')) {
+            $('#add_docsbtn1').removeAttr('disabled');
+        } else {
+            $('#add_docsbtn1').attr('disabled', 'disabled');
+            $('#cancel').hide();
+        }
+    });
      
 } );

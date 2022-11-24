@@ -74,5 +74,11 @@ $route['documents/view/(:any)'] = 'documents/view/$1';
 $route['documents/edit/(:any)'] = 'documents/edit/$1';
 $route['documents/release'] = 'documents/release';
 $route['documents/update'] = 'documents/update';
+$route['documents/cancel/(:any)'] = 'documents/cancel_creation/$1';
+$route['documents/delete_item/(:any)'] = 'documents/delete_item/$1';
+$route['documents/return/(:any)'] = 'documents/return_document/$1';
+$route['documents/cancel_process/(:any)'] = 'documents/cancel_process/$1';
+$route['documents/save_process'] = 'documents/save_process';
+$route['documents/validate_item'] = 'documents/validate_item';
 
 

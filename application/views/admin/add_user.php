@@ -8,7 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
               <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
                 <h6 class="text-white text-capitalize ps-3 d-inline-block">Add User</h6>
-                <a class="text-white d-inline-block float-end me-3" href="/dashboards/users"><i class="fas fa-arrow-left"></i></a>
+                <a class="text-white d-inline-block float-end me-3" href="/dashboards/users" data-bs-toggle="tooltip" data-bs-placement="top" title="Back"><i class="fas fa-arrow-left"></i></a>
               </div>
             </div>
             <div class="card-body p-3">
@@ -52,8 +52,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <div class="col-md-4 input-group input-group-outline my-1">
                                 <select name="userlevel" class="form-control" aria-label="Default select example">
                                     <option value="empty" selected>Select user level</option>
-                                    <option value="0">Manager</option>
-                                    <option value="1">Assistant Manager</option>
+                                    <option value="0">Admin</option>
+                                    <option value="1">Manager/Assistant Manager</option>
                                     <option value="2">Bookeeper</option>
                                 </select>
                             </div>
