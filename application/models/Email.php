@@ -35,7 +35,7 @@ class Email extends CI_Model {
         //server setup for mailing
         $mail = new PHPMailer(true);
         $mail->isSMTP();
-        $mail->Host = 'ssl://smtp.googlemail.com';
+        $mail->Host = 'ssl://smtp.gmail.com';
         $mail->SMTPAuth = true;
         $mail->Username = 'ficobank7@gmail.com';
         $mail->Password = 'mrtvrzwyleqskpka';
