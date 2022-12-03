@@ -52,9 +52,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <div class="col-md-4 input-group input-group-outline my-1">
                                 <select name="userlevel" class="form-control" aria-label="Default select example">
                                     <option value="empty" selected>Select user level</option>
-                                    <option value="0">Admin</option>
-                                    <option value="1">Manager/Assistant Manager</option>
-                                    <option value="2">Bookeeper</option>
+                                    <option value="0">Manager</option>
+                                    <option value="1">Assistant Manager</option>
+                                    <option value="2">Bookeeper/Loan Officer</option>
                                 </select>
                             </div>
                         </div>

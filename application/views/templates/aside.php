@@ -84,15 +84,18 @@ $level = $this->session->userdata('level');
             <div class="mx-3">
                 <p class="text-muted ms-2 mb-5 text-white fw-bold nav-link">login as: 
 <?php           if($this->session->userdata('auth')){
-?>                    Admin
+?>                    Manager
 <?php           }
                 elseif($this->session->userdata('mgr')){
-?>                    <br>Manager / Asst. Manager
+?>                    Asst. Manager
 <?php           }
                 elseif($this->session->userdata('bkpr')){
-?>                    Bookeeper
+?>                    <br>Bookeeper/Loan Officer
 <?php           }
-?>                </p>
+?>                <br>  
+                <a href="/dashboards/change_password">Change Password</a> 
+                </p>
+            
             </div>
         </div>
     </aside>

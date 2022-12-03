@@ -93,6 +93,27 @@ class Document extends CI_Model {
             $this->security->xss_clean($status)
         ))->result_array();
     }
+    public function get_count_return()
+    {
+        $status = '1';
+        return $this->db->query("SELECT count(*) as document_count 
+        FROM folders
+        WHERE status = ?",
+        array(
+            $this->security->xss_clean($status)
+        ))->result_array();
+    }
+
+    public function get_count_block()
+    {
+        $status = '3';
+        return $this->db->query("SELECT count(*) as document_count 
+        FROM folders
+        WHERE status = ?",
+        array(
+            $this->security->xss_clean($status)
+        ))->result_array();
+    }
 
     public function get_all_docs_offices()
     {
@@ -260,15 +281,31 @@ class Document extends CI_Model {
             $this->security->xss_clean($id)));
     }
 
-    public function return_docs($id) {
+    public function return_docs($form_data) {
+        $id = $form_data['id'];
         $status = '1';
+        $status2 = '3';
+        $location = '5';
         $uid = $this->session->userdata('user_id');
-        return $this->db->query("UPDATE folders SET status = ?, user_id = ?, update_at = ? WHERE id = ?", 
+        $this->db->query("UPDATE folders SET status = ?, user_id = ?, update_at = ? WHERE id = ?", 
         array(
             $this->security->xss_clean($status),
             $this->security->xss_clean($uid),
             $this->security->xss_clean(date("Y-m-d, H:i:s")),
             $this->security->xss_clean($id)));
+        
+        $query = "INSERT INTO folder_logs (folder_id, staff_name, position, status, location, user_id, created_at, updated_at) VALUES (?,?,?,?,?,?,?,?)";
+        $values = array(
+            $this->security->xss_clean($id), 
+            $this->security->xss_clean($form_data['recieved_by']), 
+            $this->security->xss_clean($form_data['position']), 
+            $this->security->xss_clean($status2), 
+            $this->security->xss_clean($location), 
+            $this->security->xss_clean($uid), 
+            $this->security->xss_clean(date("Y-m-d, H:i:s")),
+            $this->security->xss_clean(date("Y-m-d, H:i:s"))
+        ); 
+        $this->db->query($query, $values);
     }
 
     function validate_doc_num($docnum) 
@@ -508,6 +545,22 @@ class Document extends CI_Model {
         $this->form_validation->set_rules('fullname', 'Fullname', 'required');
         $this->form_validation->set_rules('typeofloan', 'Type of loan', 'required');   
         $this->form_validation->set_rules('typeofdocs', 'Type of documents', 'required');    
+        
+        if(!$this->form_validation->run()) {
+            return validation_errors();
+        }
+        else {
+            return "success";
+        }
+    }
+
+    function return_validation(){
+        $this->form_validation->set_error_delimiters('<div>','</div>');
+        $this->form_validation->set_rules('location', 'Location', 'required');
+        $this->form_validation->set_rules('recieved_by', 'Receiver', 'required');   
+        $this->form_validation->set_rules('position', 'Relation to Borrower', 'required'); 
+        $this->form_validation->set_rules('status', 'Status', 'required');   
+        $this->form_validation->set_rules('created_at', 'Date', 'required');    
         
         if(!$this->form_validation->run()) {
             return validation_errors();

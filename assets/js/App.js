@@ -1,6 +1,10 @@
 $(document).ready( function () {
-    $('#userlist').DataTable();
-    $('#docslist').DataTable();
+    $('#userlist').DataTable({
+        "order":[]
+    });
+    $('#docslist').DataTable({
+        "order":[]
+    });
     $('.movement_form').hide();
     $('#hide_form').hide();
 

@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+date_default_timezone_set('Asia/Manila');
 class User extends CI_Model {
     function get_user($username)
     { 
@@ -26,7 +26,7 @@ class User extends CI_Model {
         FROM dmvs_ficobank.logs
         LEFT JOIN dmvs_ficobank.users
         ON logs.created_by = users.id
-        ORDER BY logs.created_by DESC";
+        ORDER BY logs.created_at DESC";
         return $this->db->query($query)->result_array();
     }
 
@@ -155,9 +155,9 @@ class User extends CI_Model {
     function validate_change_password($password = NULL) 
     {
         $this->form_validation->set_error_delimiters('<div>','</div>');
-        $this->form_validation->set_rules('old_password', 'Old Password', 'required');
-        $this->form_validation->set_rules('password', 'Password', 'required|min_length[8]');   
-        $this->form_validation->set_rules('confirm_password', 'Confirm Password', 'required|matches[password]');  
+        $this->form_validation->set_rules('current', 'Current Password', 'required');
+        $this->form_validation->set_rules('new', 'Password', 'required|min_length[8]');   
+        $this->form_validation->set_rules('cnew', 'Confirm Password', 'required|matches[new]');  
         
         if(!$this->form_validation->run()) {
             return validation_errors();
@@ -168,19 +168,21 @@ class User extends CI_Model {
     }
 
     function check_password($password){
+        $id = $this->session->userdata('user_id');
          return $this->db->query("SELECT password FROM users WHERE id=? and password = ?", 
         array(
-            $this->security->xss_clean($password['id']),
-            md5($this->security->xss_clean($password['old_password']))))->row_array(); 
+            $this->security->xss_clean($id),
+            md5($this->security->xss_clean($password['current']))))->row_array(); 
     }
 
     function update_credentials($form_data) 
     {
+        $id = $this->session->userdata('user_id');
         return $this->db->query("UPDATE users SET password = ?, updated_at = ? WHERE id = ?", 
         array(
-            md5($this->security->xss_clean($form_data['password'])), 
+            md5($this->security->xss_clean($form_data['new'])), 
             $this->security->xss_clean(date("Y-m-d, H:i:s")),
-            $this->security->xss_clean($form_data['id'])));
+            $this->security->xss_clean($id)));
     }
 
     public function log($id)

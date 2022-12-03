@@ -38,7 +38,7 @@ class Email extends CI_Model {
         $mail->Host = 'ssl://smtp.gmail.com';
         $mail->SMTPAuth = true;
         $mail->Username = 'ficobank7@gmail.com';
-        $mail->Password = 'mrtvrzwyleqskpka';
+        $mail->Password = 'yrxcvqehlksenkva';
         $mail->Port = 465;
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
 
@@ -56,7 +56,8 @@ class Email extends CI_Model {
 
     function creation_account ($form_data)
     { 
-        //form data
+        $year = date('Y');
+        $password = 'Ficobank@'.$year;
         $fullname = $this->security->xss_clean($form_data['firstname']. ' '. $form_data['lastname']);
         $username = $this->security->xss_clean($form_data['username']);
         $to = $this->security->xss_clean($form_data['email']); 
@@ -66,7 +67,7 @@ class Email extends CI_Model {
         <p>Good day! '.$fullname.',</p>
         <p>Your account has been created use this creadentials to <a href="http://dmvs-ficobank.local/">login</a> in your account</p>
         <p>Username:'. $username .'</p>
-        <p>Username: P@ssw0rd</p>
+        <p>Password: '.$password.'</p>
         </br>
         <p>please change your password after your first login</p>
         </br>
@@ -84,7 +85,7 @@ class Email extends CI_Model {
         $mail->Host = 'ssl://smtp.googlemail.com';
         $mail->SMTPAuth = true;
         $mail->Username = 'ficobank7@gmail.com';
-        $mail->Password = 'mrtvrzwyleqskpka';
+        $mail->Password = 'yrxcvqehlksenkva';
         $mail->Port = 465;
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
 
@@ -145,7 +146,7 @@ class Email extends CI_Model {
         $mail->Host = 'ssl://smtp.googlemail.com';
         $mail->SMTPAuth = true;
         $mail->Username = 'ficobank7@gmail.com';
-        $mail->Password = 'mrtvrzwyleqskpka';
+        $mail->Password = 'yrxcvqehlksenkva';
         $mail->Port = 465;
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
 
@@ -203,7 +204,7 @@ class Email extends CI_Model {
         $mail->Host = 'ssl://smtp.googlemail.com';
         $mail->SMTPAuth = true;
         $mail->Username = 'ficobank7@gmail.com';
-        $mail->Password = 'mrtvrzwyleqskpka';
+        $mail->Password = 'yrxcvqehlksenkva';
         $mail->Port = 465;
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
 

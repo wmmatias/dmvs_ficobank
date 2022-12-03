@@ -189,16 +189,25 @@ class Users extends CI_Controller {
     {   
         $checkpassword = $this->input->post();
         $result = $this->user->validate_change_password($checkpassword);
+        // var_dump($result);
         if(!empty($result)) {
-            $this->session->set_flashdata('credentials_errors', $result);
-            redirect("users/edit");
+            $this->session->set_flashdata('input_errors', $result);
+            $this->load->view('templates/header');
+            $this->load->view('templates/aside');
+            $this->load->view('templates/topbar');   
+            $this->load->view('admin/user_update');
+            $this->load->view('templates/footer');
         } 
         else
         {  
             $form_data = $this->input->post();
             $this->user->update_credentials($form_data);
-            $this->session->set_flashdata('successc','your credential successfully update');
-            redirect("users/edit");
+            $this->session->set_flashdata('input_errors','your password successfully update');
+            $this->load->view('templates/header');
+            $this->load->view('templates/aside');
+            $this->load->view('templates/topbar');   
+            $this->load->view('admin/user_update');
+            $this->load->view('templates/footer');
         }
     }
     

@@ -167,11 +167,11 @@ class Documents extends CI_Controller {
             $this->session->set_userdata(array('page'=> 'Form'));
             redirect("documents/edit/$id");
         }
-        elseif(count($check_duplicate) > 0){
-            $this->session->set_flashdata('location_errors', '<p class="text-danger">Duplicate Movement</p>');
-            $this->session->set_userdata(array('page'=> 'Form'));
-            redirect("documents/edit/$id");
-        }
+        // elseif(count($check_duplicate) > 0){
+        //     $this->session->set_flashdata('location_errors', '<p class="text-danger">Duplicate Movement</p>');
+        //     $this->session->set_userdata(array('page'=> 'Form'));
+        //     redirect("documents/edit/$id");
+        // }
         else
         {
             $this->document->setnew_location($form_data);
@@ -229,8 +229,41 @@ class Documents extends CI_Controller {
     }
 
     public function return_document($id){
-        $this->document->return_docs($id);
-        redirect('/dashboards/history');
+        // $this->document->return_docs($id);
+        // redirect('/dashboards/history');
+        $docs = $this->document->get_all_docs_by_id($id);
+        $loc = $this->document->get_all_loc_by_id($id);
+        $list = array('doc'=> $docs, 'loc'=> $loc);
+        $current_user_id = $this->session->userdata('user_id');
+        if(!$current_user_id) {
+            redirect("users");
+        } 
+        else {
+            $this->session->set_userdata(array('page'=> 'Logs'));
+            $this->load->view('templates/header');
+            $this->load->view('templates/aside');
+            $this->load->view('templates/topbar');   
+            $this->load->view('admin/return_docs',$list);
+            $this->load->view('templates/footer');
+        }
+    }
+
+    public function return_validation() 
+    { 
+        $result = $this->document->return_validation();
+        $form_data = $this->input->post();
+        $id = $form_data['id'];
+        if($result!='success')
+        {
+            $this->session->set_flashdata('input_errors', $result);
+            redirect("documents/return/$id");
+        }
+        else
+        {
+            $this->document->return_docs($form_data);
+            $this->session->set_flashdata('input_errors', 'Document Return successfully');
+            redirect("documents/return/$id");
+        }
     }
     
     public function release() 
@@ -246,8 +279,6 @@ class Documents extends CI_Controller {
         $result = $this->document->update_validation();
         $form_data = $this->input->post();
         $id = $form_data['id'];
-        $user_details = $this->user->get_user_id($this->session->userdata('user_id'));
-
         if($result!='success')
         {
             $this->session->set_flashdata('input_errors', $result);

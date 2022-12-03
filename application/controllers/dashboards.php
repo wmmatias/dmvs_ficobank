@@ -10,7 +10,9 @@ class Dashboards extends CI_Controller {
         $rod = $this->document->get_count_rod();
         $treasury = $this->document->get_count_treasury();
         $lto = $this->document->get_count_lto();
-        $data = array('list'=>$newdata, 'offices'=> $office, 'rod'=> $rod, 'treasury'=> $treasury, 'lto'=> $lto);
+        $return = $this->document->get_count_return();
+        $block = $this->document->get_count_block();
+        $data = array('list'=>$newdata, 'offices'=> $office, 'rod'=> $rod, 'treasury'=> $treasury, 'lto'=> $lto, 'return'=> $return, 'block'=> $block);
         $current_user_id = $this->session->userdata('user_id');
         if(!$current_user_id) {
             redirect("users");
@@ -255,6 +257,20 @@ class Dashboards extends CI_Controller {
         }
         
         
+    }
+
+    public function change_password(){
+        $current_user_id = $this->session->userdata('user_id');
+        if(!$current_user_id) {
+            redirect("users");
+        } 
+        else {
+            $this->load->view('templates/header');
+            $this->load->view('templates/aside');
+            $this->load->view('templates/topbar');   
+            $this->load->view('admin/user_update');
+            $this->load->view('templates/footer');
+        }
     }
     
     public function export_backup(){

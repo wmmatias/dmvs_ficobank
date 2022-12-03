@@ -17,7 +17,7 @@ $dnone = $this->session->userdata('location');
 				}
 				else{
 ?>
-				<a class="text-white d-inline-block float-end me-3" href="/documents/return/<?=$loc[0]['id']?>" onclick="return confirm('Are you sure you want to Return this Document?')"><i class="fa-solid fa-boxes-packing" data-bs-toggle="tooltip" data-bs-placement="top" title="Return Document"></i></a>
+				<a class="text-white d-inline-block float-end me-3" href="/documents/return/<?=$loc[0]['id']?>"><i class="fa-solid fa-boxes-packing" data-bs-toggle="tooltip" data-bs-placement="top" title="Return Document"></i></a>
 				<a class="text-white d-inline-block float-end me-3" href="/documents/delete/<?=$loc[0]['id']?>"onclick="return confirm('Are you sure you want to Block this Document?')"><i class="fa-solid fa-ban" data-bs-toggle="tooltip" data-bs-placement="top" title="Block"></i></a>
 				<a class="text-white d-inline-block float-end me-3" href="/documents/edit/<?=$loc[0]['id']?>"><i class="fas fa-truck-fast" data-bs-toggle="tooltip" data-bs-placement="top" title="Move Document"></i></a>
 <?php			}
@@ -53,7 +53,7 @@ $dnone = $this->session->userdata('location');
 								foreach($doc as $data){
 ?>                        		<tr>
 									<td>
-										<p class="text-sm font-weight-bold mb-0"><?=$data['doc_number']?></p>
+										<p class="text-sm font-weight-bold mb-0"><?=$data['physical_no']?></p>
 									</td>
 									<td >
 										<p class="text-sm font-weight-bold mb-0"><?=($data['document_type'] === '0'? 'Land Title':'OR/CR')?></p>
@@ -90,7 +90,7 @@ $dnone = $this->session->userdata('location');
 										<div class="d-flex px-2">
 											<div class="my-auto">
 												<h6 class="mb-0 text-sm">
-													<?=($data['location'] === '1'? 'Office':($data['location'] === '2'? 'RDO':($data['location'] === '3'? 'Treasury':($data['location'] === '4'? 'LTO':''))))?>
+													<?=($data['location'] === '1'? 'Office':($data['location'] === '2'? 'RDO':($data['location'] === '3'? 'Treasury':($data['location'] === '4'? 'LTO':($data['location'] === '5'? 'Returned':'')))))?>
 								  				</h6>
 											</div>
 										</div>
@@ -102,7 +102,7 @@ $dnone = $this->session->userdata('location');
 										<p class="text-sm font-weight-bold mb-0"><?=$data['position']?></p>
 									</td>
 									<td>
-										<p class="text-sm font-weight-bold mb-0"><?=($data['location_status'] === '0' ? 'Recieve': ($data['location_status'] === '1' ? 'Release': ($data['location_status'] === '2' ? 'Deliver': '')))?></p>
+										<p class="text-sm font-weight-bold mb-0"><?=($data['location_status'] === '0' ? 'Recieve': ($data['location_status'] === '1' ? 'Release': ($data['location_status'] === '2' ? 'Deliver': ($data['location_status'] === '3' ? 'Returned': ''))))?></p>
 									</td>
 									<td >
 										<p class="text-sm font-weight-bold mb-0"><?=date('M-d-Y', strtotime($data['document_history']))?></p>

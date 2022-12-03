@@ -37,7 +37,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </div>
                             </td>
                             <td>
-                                <p class="text-sm font-weight-bold mb-0"><?=($list[$i]['user_level'] === '2' ? 'Bookeeper' : ($list[$i]['user_level'] === '1' ? 'Manager / Asst Manager' : 'Admin'))?></p>
+                                <p class="text-sm font-weight-bold mb-0"><?=($list[$i]['user_level'] === '2' ? 'Bookeeper/Loan Officer' : ($list[$i]['user_level'] === '1' ? 'Asst Manager' : 'Manager'))?></p>
                             </td>
                             <td>
                                 <p class="text-sm font-weight-bold mb-0"><?=($list[$i]['status'] === '1' ? 'Active' : 'Not Active')?></p>
