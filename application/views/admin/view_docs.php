@@ -29,7 +29,7 @@ $dnone = $this->session->userdata('location');
 					<div class="details mt-3">
 						<p class="text-sm font-weight-bold mb-4">System Generated #: <?=$loc[0]['doc_number']?></p>
 						<p class="text-sm font-weight-bold">Date Created: <?= date('M-d-Y', strtotime($loc[0]['document_created'])) ?></p>
-						<p class="text-sm font-weight-bold">Borrower's Name: <?=$loc[0]['fullname']?></p>
+						<p class="text-sm font-weight-bold">Borrower's Name: <?=$this->encrypt->decode($loc[0]['fullname'])?></p>
 						<p class="text-sm font-weight-bold">Type of loan: <?=($type === '0' ? 'Agricultural Loan':($type === '1' ? 'Commercial Loan':($type === '2' ? 'Todo-Ani Loan':($type === '3' ? 'Farm Machienery Loan': ''))))?></p>
 						<hr class="horizontal dark mt-0 mb-2">
 					</div>
@@ -74,6 +74,7 @@ $dnone = $this->session->userdata('location');
 								<th class="text-uppercase text-dark text-sm font-weight-bolder ps-2">Staff</th>
 								<th class="text-uppercase text-dark text-sm font-weight-bolder ps-2">Position</th>
 								<th class="text-uppercase text-dark text-sm font-weight-bolder ps-2">Status</th>
+								<th class="text-uppercase text-dark text-sm font-weight-bolder ps-2">Remarks</th>
 								<th class="text-uppercase text-dark text-sm font-weight-bolder ps-2">Date</th>
 								</tr>
 							</thead>
@@ -103,6 +104,9 @@ $dnone = $this->session->userdata('location');
 									</td>
 									<td>
 										<p class="text-sm font-weight-bold mb-0"><?=($data['location_status'] === '0' ? 'Recieve': ($data['location_status'] === '1' ? 'Release': ($data['location_status'] === '2' ? 'Deliver': ($data['location_status'] === '3' ? 'Returned': ''))))?></p>
+									</td>
+									<td>
+										<p class="text-sm font-weight-bold mb-0"><?=$data['remarks']?></p>
 									</td>
 									<td >
 										<p class="text-sm font-weight-bold mb-0"><?=date('M-d-Y', strtotime($data['document_history']))?></p>

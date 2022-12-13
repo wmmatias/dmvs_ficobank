@@ -27,7 +27,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="col">
                         <div class="col-md-4 input-group input-group-outline my-1 focused is-focused">
                             <label class="form-label">Borrowers fullname</label>
-                            <input type="text" name="fullname" class="form-control" value="<?=$details['fullname']?>" readonly>
+                            <input type="text" name="fullname" class="form-control" value="<?=$this->encrypt->decode($details['fullname'])?>" readonly>
                         </div>
                     </div>
                     <div class="col">
@@ -50,7 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="col">
                             <div class="col-md-4 input-group input-group-outline my-1">
                                 <label class="form-label">Physical Document#</label>
-                                <input type="text" name="physicalnumber" class="form-control">
+                                <input type="text" name="physicalnumber" class="form-control" maxlength="12">
                             </div>
                         </div>
                         <div class="col">

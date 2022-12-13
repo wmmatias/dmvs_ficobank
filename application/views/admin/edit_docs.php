@@ -88,9 +88,11 @@ $type = $loc[0]['loan_type'];
 									<input type="text" name="position" class="form-control">
 								</div>
 							</div>
+						</div>
+							<div class="row">
 							<div class="col-md">
 								<div class="col-md-4 input-group input-group-outline my-1 focused is-focused">
-                  <select name="status" class="form-control" aria-label="Default select example">
+                  					<select name="status" class="form-control" aria-label="Default select example">
 										<option value="empty" selected>Select Status</option>
 										<option value="0">Recieve</option>
 										<option value="1">Release</option>
@@ -99,9 +101,15 @@ $type = $loc[0]['loan_type'];
 								</div>
 							</div>
 							<div class="col-md">
+								<div class="col-md-4 input-group input-group-outline my-1">
+									<label class="form-label">Remarks</label>
+									<input type="text" name="remarks" class="form-control">
+								</div>
+							</div>
+							<div class="col-md">
 								<div class="col-md-4 input-group input-group-outline my-1 focused is-focused">
 									<label class="form-label">Date</label>
-									<input type="date" name="created_at" class="form-control" value="<?= $curr_timestamp?>">
+									<input type="date" name="moved" class="form-control" value="<?= $curr_timestamp?>">
 								</div>
 							</div>
 						</div>
@@ -124,6 +132,7 @@ $type = $loc[0]['loan_type'];
                         <th class="text-uppercase text-dark text-sm font-weight-bolder ps-2">Staff</th>
                         <th class="text-uppercase text-dark text-sm font-weight-bolder ps-2">Position</th>
                         <th class="text-uppercase text-dark text-sm font-weight-bolder ps-2">Status</th>
+                        <th class="text-uppercase text-dark text-sm font-weight-bolder ps-2">Remarks</th>
                         <th class="text-uppercase text-dark text-sm font-weight-bolder ps-2">Date</th>
                         </tr>
                       </thead>
@@ -153,6 +162,9 @@ $type = $loc[0]['loan_type'];
 									</td>
 									<td>
 										<p class="text-sm font-weight-bold mb-0"><?=($data['location_status'] === '0' ? 'Recieve': ($data['location_status'] === '1' ? 'Release': ($data['location_status'] === '2' ? 'Deliver': '')))?></p>
+									</td>
+									<td>
+										<p class="text-sm font-weight-bold mb-0"><?=$data['remarks']?></p>
 									</td>
 									<td >
 										<p class="text-sm font-weight-bold mb-0"><?=date('M-d-Y', strtotime($data['document_history']))?></p>

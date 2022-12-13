@@ -56,6 +56,11 @@ class Users extends CI_Controller {
             elseif($user['user_level'] === '2'){
                 $level = 'Bookeeper';
             }
+
+            if(empty($user)){
+                redirect('/');
+            }
+            else{
             
             $result = $this->user->validate_signin_match($user, $this->input->post('password'));
             
@@ -91,6 +96,7 @@ class Users extends CI_Controller {
                 $this->session->set_flashdata('input_errors', $result);
                 redirect("/");
             }
+        }
         }
 
     }

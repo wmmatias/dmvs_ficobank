@@ -28,13 +28,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </tr>
                     </thead>
                     <tbody>
-<?php                   if(count($list) < 1){
-?>                            <tr>
-                                <td colspan="10" class="text-center fw-bold">No Records Found</td>
-                            </tr>
-<?php                   }
-                        else{
-                            foreach($list as $data){    
+<?php                   foreach($list as $data){    
 ?>                       <tr class="sticky-col first-col">
                             <!-- <td>
                                <a href="/documents/edit/<?=$data['id']?>" class="text-xxsm" data-bs-toggle="tooltip" data-bs-placement="top" title="Move Document"><i class="fa-solid fa-truck-fast"></i></a> 
@@ -59,7 +53,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <p class="text-sm font-weight-bold mb-0"><?=($data['document_type'] === '0' ? 'Land Title' : 'OR/CR')?></p>
                             </td>
                             <td>
-                                <p class="text-sm font-weight-bold mb-0"><?=$data['fullname']?></p>
+                                <p class="text-sm font-weight-bold mb-0"><?=$this->encrypt->decode($data['fullname'])?></p>
                             </td>
                             <td>
                                 <p class="text-sm font-weight-bold mb-0">
@@ -88,7 +82,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </td>
                         </tr>
 <?php                       }
-                        }
 ?>                    </tbody>
                 </table>
               </div>

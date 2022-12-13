@@ -83,6 +83,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <script src="/assets/js/core/bootstrap.min.js"></script>
   <script src="/assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="/assets/js/plugins/smooth-scrollbar.min.js"></script>
+  
+  <script src="/assets/js/plugins/chartjs.min.js"></script>
+  <script src='/assets/plugins/Chart.min.js'></script>
   <script>
     var win = navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -96,6 +99,307 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="/assets/js/material-dashboard.min.js?v=3.0.4"></script>
+
+  <script>
+
+    
+
+  //  *======== 3. LINE CHART ========*/
+  var ctx = document.getElementById("linechart");
+  if (ctx !== null) {
+    var chart = new Chart(ctx, {
+      // The type of chart we want to create
+      type: "line",
+
+      // The data for our dataset
+      data: {
+        labels: [
+<?php     foreach($return as $data){
+?>          "<?=$data['mos']?>",
+<?php     }
+?>        ],
+        datasets: [
+          {
+            label: "",
+            backgroundColor: "transparent",
+            borderColor: "rgb(82, 136, 255)",
+            data: [
+<?php     foreach($return as $data){
+?>          "<?=$data['total_count']?>",
+<?php     }
+?>        ],
+            lineTension: 0.3,
+            pointRadius: 5,
+            pointBackgroundColor: "rgba(255,255,255,1)",
+            pointHoverBackgroundColor: "rgba(255,255,255,1)",
+            pointBorderWidth: 2,
+            pointHoverRadius: 8,
+            pointHoverBorderWidth: 1
+          }
+        ]
+      },
+
+      // Configuration options go here
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        legend: {
+          display: false
+        },
+        layout: {
+          padding: {
+            right: 10
+          }
+        },
+        scales: {
+          xAxes: [
+            {
+              gridLines: {
+                display: false
+              }
+            }
+          ],
+          yAxes: [
+            {
+              gridLines: {
+                display: true,
+                color: "#eee",
+                zeroLineColor: "#eee",
+              },
+              ticks: {
+                callback: function(value) {
+                  var ranges = [
+                    { divider: 1e6, suffix: "M" },
+                    { divider: 1e4, suffix: "k" }
+                  ];
+                  function formatNumber(n) {
+                    for (var i = 0; i < ranges.length; i++) {
+                      if (n >= ranges[i].divider) {
+                        return (
+                          (n / ranges[i].divider).toString() + ranges[i].suffix
+                        );
+                      }
+                    }
+                    return n;
+                  }
+                  return formatNumber(value);
+                }
+              }
+            }
+          ]
+        },
+        tooltips: {
+          callbacks: {
+            title: function(tooltipItem, data) {
+              return data["labels"][tooltipItem[0]["index"]];
+            },
+            label: function(tooltipItem, data) {
+              return "$" + data["datasets"][0]["data"][tooltipItem["index"]];
+            }
+          },
+          responsive: true,
+          intersect: false,
+          enabled: true,
+          titleFontColor: "#888",
+          bodyFontColor: "#555",
+          titleFontSize: 12,
+          bodyFontSize: 18,
+          backgroundColor: "rgba(256,256,256,0.95)",
+          xPadding: 20,
+          yPadding: 10,
+          displayColors: false,
+          borderColor: "rgba(220, 220, 220, 0.9)",
+          borderWidth: 0,
+          caretSize: 10,
+          caretPadding: 15
+        }
+      }
+    });
+  }
+    
+
+  //  *======== 3. LINE CHART ========*/
+  var ctx = document.getElementById("linechart1");
+  if (ctx !== null) {
+    var chart = new Chart(ctx, {
+      // The type of chart we want to create
+      type: "line",
+
+      // The data for our dataset
+      data: {
+        labels: [
+<?php     foreach($unreturn as $data){
+?>          "<?=$data['mos']?>",
+<?php     }
+?>        ],
+        datasets: [
+          {
+            label: "",
+            backgroundColor: "transparent",
+            borderColor: "rgb(82, 136, 255)",
+            data: [
+<?php     foreach($unreturn as $data){
+?>          "<?=$data['total_count']?>",
+<?php     }
+?>        ],
+            lineTension: 0.3,
+            pointRadius: 5,
+            pointBackgroundColor: "rgba(255,255,255,1)",
+            pointHoverBackgroundColor: "rgba(255,255,255,1)",
+            pointBorderWidth: 2,
+            pointHoverRadius: 8,
+            pointHoverBorderWidth: 1
+          }
+        ]
+      },
+
+      // Configuration options go here
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        legend: {
+          display: false
+        },
+        layout: {
+          padding: {
+            right: 10
+          }
+        },
+        scales: {
+          xAxes: [
+            {
+              gridLines: {
+                display: false
+              }
+            }
+          ],
+          yAxes: [
+            {
+              gridLines: {
+                display: true,
+                color: "#eee",
+                zeroLineColor: "#eee",
+              },
+              ticks: {
+                callback: function(value) {
+                  var ranges = [
+                    { divider: 1e6, suffix: "M" },
+                    { divider: 1e4, suffix: "k" }
+                  ];
+                  function formatNumber(n) {
+                    for (var i = 0; i < ranges.length; i++) {
+                      if (n >= ranges[i].divider) {
+                        return (
+                          (n / ranges[i].divider).toString() + ranges[i].suffix
+                        );
+                      }
+                    }
+                    return n;
+                  }
+                  return formatNumber(value);
+                }
+              }
+            }
+          ]
+        },
+        tooltips: {
+          callbacks: {
+            title: function(tooltipItem, data) {
+              return data["labels"][tooltipItem[0]["index"]];
+            },
+            label: function(tooltipItem, data) {
+              return "$" + data["datasets"][0]["data"][tooltipItem["index"]];
+            }
+          },
+          responsive: true,
+          intersect: false,
+          enabled: true,
+          titleFontColor: "#888",
+          bodyFontColor: "#555",
+          titleFontSize: 12,
+          bodyFontSize: 18,
+          backgroundColor: "rgba(256,256,256,0.95)",
+          xPadding: 20,
+          yPadding: 10,
+          displayColors: false,
+          borderColor: "rgba(220, 220, 220, 0.9)",
+          borderWidth: 2,
+          caretSize: 10,
+          caretPadding: 15
+        }
+      }
+    });
+  }
+/*======== 27. ACQUISITION3 ========*/
+var acquisition3 = document.getElementById("bar3");
+if (acquisition3 !== null) {
+  var acChart3 = new Chart(acquisition3, {
+    // The type of chart we want to create
+    type: "bar",
+
+    // The data for our dataset
+    data: {
+      labels: ["Total Count per Document"],
+      datasets: [
+        {
+          label: "OR/CR",
+          backgroundColor: "rgb(76, 132, 255)",
+          borderColor: "rgba(76, 132, 255,0)",
+          data: [<?=$document[1]['total_count']?>],
+          pointBackgroundColor: "rgba(76, 132, 255,0)",
+          pointHoverBackgroundColor: "rgba(76, 132, 255,1)",
+          pointHoverRadius: 3,
+          pointHitRadius: 30
+        },
+        {
+          label: "Land Title",
+          backgroundColor: "rgb(254, 196, 0)",
+          borderColor: "rgba(254, 196, 0,0)",
+          data: [<?=$document[0]['total_count']?>],
+          pointBackgroundColor: "rgba(254, 196, 0,0)",
+          pointHoverBackgroundColor: "rgba(254, 196, 0,1)",
+          pointHoverRadius: 3,
+          pointHitRadius: 30
+        }
+      ]
+    },
+
+    // Configuration options go here
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: {
+        display: false
+      },
+      scales: {
+        xAxes: [
+          {
+            gridLines: {
+              display: false
+            }
+          }
+        ],
+        yAxes: [
+          {
+            gridLines: {
+              display: false
+            },
+            ticks: {
+              beginAtZero: true,
+              stepSize: 50,
+              fontColor: "#8a909d",
+              fontFamily: "",
+              max: 200
+            }
+          }
+        ]
+      },
+      tooltips: {}
+    }
+  });
+  document.getElementById("customLegend").innerHTML = acChart3.generateLegend();
+}
+  </script>
 </body>
 
 </html>

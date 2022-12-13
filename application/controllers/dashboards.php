@@ -12,6 +12,10 @@ class Dashboards extends CI_Controller {
         $lto = $this->document->get_count_lto();
         $return = $this->document->get_count_return();
         $block = $this->document->get_count_block();
+        $document = $this->document->get_countper_document();
+        $return_chart = $this->document->get_return_chart();
+        $unreturn_chart = $this->document->get_unreturn_chart();
+        $chart = array('document'=>$document, 'return'=> $return_chart, 'unreturn'=> $unreturn_chart);
         $data = array('list'=>$newdata, 'offices'=> $office, 'rod'=> $rod, 'treasury'=> $treasury, 'lto'=> $lto, 'return'=> $return, 'block'=> $block);
         $current_user_id = $this->session->userdata('user_id');
         if(!$current_user_id) {
@@ -23,7 +27,7 @@ class Dashboards extends CI_Controller {
             $this->load->view('templates/aside');
             $this->load->view('templates/topbar');   
             $this->load->view('admin/dashboard', $data);
-            $this->load->view('templates/footer');
+            $this->load->view('templates/footer', $chart);
         }
         
     }
@@ -69,6 +73,19 @@ class Dashboards extends CI_Controller {
     public function delete($id) 
     {  
         $this->user->delete_user_id($id);
+        redirect('/dashboards/users');
+    }
+
+    
+    public function blocked($id) 
+    {  
+        $this->user->block_user_id($id);
+        redirect('/dashboards/users');
+    }
+
+    public function unblock($id) 
+    {  
+        $this->user->unblock_user_id($id);
         redirect('/dashboards/users');
     }
 

@@ -4,8 +4,13 @@ date_default_timezone_set('Asia/Manila');
 class User extends CI_Model {
     function get_user($username)
     { 
-        $query = "SELECT * FROM users WHERE user_name = ?";
-        return $this->db->query($query, $this->security->xss_clean($username))->result_array()[0];
+        $status ='3';
+        $query = "SELECT * FROM users WHERE user_name = ? AND status != ?";
+        $values = array(
+            $this->security->xss_clean($username), 
+            $this->security->xss_clean($status)
+        );
+        return $this->db->query($query, $values)->result_array()[0];
     }
 
     function get_user_add($username)
@@ -33,6 +38,25 @@ class User extends CI_Model {
     public function delete_user_id($id) {
         return $this->db->query("DELETE FROM users WHERE id = ?", 
         array(
+            $this->security->xss_clean($id)));
+    }
+
+
+    public function block_user_id($id) {
+        $status = '3';
+        return $this->db->query("UPDATE users SET status = ?, updated_at = ? WHERE id = ?", 
+        array(
+            $this->security->xss_clean($status),
+            $this->security->xss_clean(date("Y-m-d, H:i:s")),
+            $this->security->xss_clean($id)));
+    }
+
+    public function unblock_user_id($id) {
+        $status = '0';
+        return $this->db->query("UPDATE users SET status = ?, updated_at = ? WHERE id = ?", 
+        array(
+            $this->security->xss_clean($status),
+            $this->security->xss_clean(date("Y-m-d, H:i:s")),
             $this->security->xss_clean($id)));
     }
 

@@ -251,9 +251,41 @@ class Document extends CI_Model {
         ))->result_array();
     } 
 
+    public function get_countper_document(){
+        return $this->db->query("SELECT COUNT(documents.document_type) as total_count, documents.document_type FROM dmvs_ficobank.folders
+        LEFT JOIN dmvs_ficobank.documents
+        ON folders.id = documents.folder_id
+        WHERE folders.id IN(SELECT folder_id FROM dmvs_ficobank.documents) AND  year(folders.created_at) = year(now())
+        GROUP BY documents.document_type")->result_array();
+    }
+
+    public function get_return_chart(){
+        $status = '1';
+        return $this->db->query("SELECT left(MONTHNAME(created_at), 3) AS mos, COUNT(R.doc_number) AS total_count 
+        FROM dmvs_ficobank.folders R
+        WHERE year(created_at) = year(now()) AND status = ?
+        GROUP BY YEAR(created_at), MONTHNAME(created_at)
+        ORDER BY YEAR(created_at), MONTHNAME(created_at)",
+        array(
+            $this->security->xss_clean($status)
+        ))->result_array();
+    }
+
+    public function get_unreturn_chart(){
+        $status = '0';
+        return $this->db->query("SELECT left(MONTHNAME(created_at), 3) AS mos, COUNT(R.doc_number) AS total_count 
+        FROM dmvs_ficobank.folders R
+        WHERE year(created_at) = year(now()) AND status = ?
+        GROUP BY YEAR(created_at), MONTHNAME(created_at)
+        ORDER BY YEAR(created_at), MONTHNAME(created_at)",
+        array(
+            $this->security->xss_clean($status)
+        ))->result_array();
+    }
+
     function get_all_loc_by_id($id)
     {
-        return $this->db->query("SELECT folders.id, folders.doc_number, folders.fullname, folders.loan_type, folder_logs.staff_name, folder_logs.position, folders.status as folder_status, folder_logs.location, folder_logs.status as location_status, folder_logs.created_at as document_history, folders.created_at as document_created
+        return $this->db->query("SELECT folders.id, folders.doc_number, folders.fullname, folders.loan_type, folder_logs.staff_name, folder_logs.position, folders.status as folder_status, folder_logs.location, folder_logs.status as location_status, folder_logs.remarks, folder_logs.moved as document_history, folders.created_at as document_created
         FROM dmvs_ficobank.folders 
         LEFT JOIN dmvs_ficobank.folder_logs
         ON folders.id = folder_logs.folder_id 
@@ -344,7 +376,8 @@ class Document extends CI_Model {
         $this->form_validation->set_rules('recieved_by', 'Personnel', 'required');   
         $this->form_validation->set_rules('position', 'Position', 'required');  
         $this->form_validation->set_rules('status', 'Status', 'required'); 
-        $this->form_validation->set_rules('created_at', 'Released At', 'required');     
+        $this->form_validation->set_rules('remarks', 'Remarks', 'required'); 
+        $this->form_validation->set_rules('moved', 'Moved Date', 'required');     
         
         if(!$this->form_validation->run()) {
             return validation_errors();
@@ -360,7 +393,8 @@ class Document extends CI_Model {
         $values = array(
             $this->security->xss_clean($form_data['user_id']), 
             $this->security->xss_clean($docnum), 
-            $this->security->xss_clean(ucwords(strtolower($form_data['fullname']))), 
+            // $this->security->xss_clean(ucwords(strtolower($form_data['fullname']))), 
+            $this->encrypt->encode($this->security->xss_clean($form_data['fullname'])), 
             $this->security->xss_clean($form_data['typeofloan']), 
             $this->security->xss_clean(date("Y-m-d, H:i:s")),
             $this->security->xss_clean(date("Y-m-d, H:i:s"))
@@ -414,13 +448,16 @@ class Document extends CI_Model {
             $this->security->xss_clean($id)
         ));
 
-        $query = "INSERT INTO folder_logs (folder_id, staff_name, position, location, user_id, created_at, updated_at) VALUES (?,?,?,?,?,?,?)";
+        $remarks = 'New Borrower';
+        $query = "INSERT INTO folder_logs (folder_id, staff_name, position, location, user_id, remarks, moved, created_at, updated_at) VALUES (?,?,?,?,?,?,?,?,?)";
         $values = array(
             $this->security->xss_clean($id), 
             $this->security->xss_clean($fullname), 
             $this->security->xss_clean($position), 
             $this->security->xss_clean($location),
             $this->security->xss_clean($user_id),
+            $this->security->xss_clean($remarks),
+            $this->security->xss_clean(date("Y-m-d, H:i:s")),
             $this->security->xss_clean(date("Y-m-d, H:i:s")),
             $this->security->xss_clean(date("Y-m-d, H:i:s"))
         ); 
@@ -499,7 +536,7 @@ class Document extends CI_Model {
         $current = ($loc === 'office'? '1' :($loc === 'rod'? '2' :($loc === 'treasury'? '3' :($loc === 'lto'? '4' : ''))));
         if($current != $form_data['location'] && $form_data['status'] === '0'){
 
-            $this->db->query("INSERT INTO folder_logs (folder_id, staff_name, position, status, location, user_id, created_at, updated_at) VALUES (?,?,?,?,?,?,?,?)",
+            $this->db->query("INSERT INTO folder_logs (folder_id, staff_name, position, status, location, user_id, remarks, moved, created_at, updated_at) VALUES (?,?,?,?,?,?,?,?,?,?)",
             array(
                 $this->security->xss_clean($form_data['id']), 
                 $this->security->xss_clean(ucwords(strtolower($form_data['recieved_by']))), 
@@ -507,6 +544,8 @@ class Document extends CI_Model {
                 $this->security->xss_clean($form_data['status']),
                 $this->security->xss_clean($form_data['location']),
                 $this->security->xss_clean($id),
+                $this->security->xss_clean($form_data['remarks']),
+                $this->security->xss_clean($form_data['moved']),
                 $this->security->xss_clean(date("Y-m-d, H:i:s")),
                 $this->security->xss_clean(date("Y-m-d, H:i:s"))
             )); 
@@ -517,7 +556,7 @@ class Document extends CI_Model {
                 $this->security->xss_clean($form_data['id'])));
             }
         else{
-            return $this->db->query("INSERT INTO folder_logs (folder_id, staff_name, position, status, location, user_id, created_at, updated_at) VALUES (?,?,?,?,?,?,?,?)",
+            return $this->db->query("INSERT INTO folder_logs (folder_id, staff_name, position, status, location, user_id, remarks, moved, created_at, updated_at) VALUES (?,?,?,?,?,?,?,?,?,?)",
             array(
                 $this->security->xss_clean($form_data['id']), 
                 $this->security->xss_clean(ucwords(strtolower($form_data['recieved_by']))), 
@@ -525,6 +564,8 @@ class Document extends CI_Model {
                 $this->security->xss_clean($form_data['status']),
                 $this->security->xss_clean($form_data['location']),
                 $this->security->xss_clean($id),
+                $this->security->xss_clean($form_data['remarks']),
+                $this->security->xss_clean($form_data['moved']),
                 $this->security->xss_clean(date("Y-m-d, H:i:s")),
                 $this->security->xss_clean(date("Y-m-d, H:i:s"))
             )); 

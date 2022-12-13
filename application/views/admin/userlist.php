@@ -40,7 +40,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <p class="text-sm font-weight-bold mb-0"><?=($list[$i]['user_level'] === '2' ? 'Bookeeper/Loan Officer' : ($list[$i]['user_level'] === '1' ? 'Asst Manager' : 'Manager'))?></p>
                             </td>
                             <td>
-                                <p class="text-sm font-weight-bold mb-0"><?=($list[$i]['status'] === '1' ? 'Active' : 'Not Active')?></p>
+                                <p class="text-sm font-weight-bold mb-0"><?=($list[$i]['status'] === '0' ? 'Active' : ($list[$i]['status'] === '1' ? 'Not Active' :'Blocked'))?></p>
                             </td>
                             <td >
                                 <p class="text-sm font-weight-bold mb-0"><?=$create?></p>
@@ -50,7 +50,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </td>
                             <td>
                                 <a href="/dashboards/edit/<?=$list[$i]['id']?>" class="text-xxsm btn btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="fas fa-pen"></i></a>
-                                <a href="/users/delete/<?=$list[$i]['id']?>" onclick="return confirm('Are you sure you want to DELETE this?')" class="text-xxsm btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><i class="fas fa-trash"></i></a>
+                                <a href="/users/block/<?=$list[$i]['id']?>" onclick="return confirm('Are you sure you want to Block this?')" class="text-xxsm btn btn-danger <?=($list[$i]['status'] != '3' ? '' :'d-none')?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Block"><i class="fas fa-ban"></i></a>
+                                <a href="/users/unblock/<?=$list[$i]['id']?>" onclick="return confirm('Are you sure you want to Unblock this?')" class="text-xxsm btn btn-success <?=($list[$i]['status'] === '3' ? '' :'d-none')?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Unblock"><i class="fas fa-check"></i></a>
                             </td>
                         </tr>
 <?php                   }

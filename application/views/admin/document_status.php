@@ -43,7 +43,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </div>
                             </td>
                             <td>
-                                <p class="text-sm font-weight-bold mb-0"><?=$data['fullname']?></p>
+                                <p class="text-sm font-weight-bold mb-0"><?=$this->encrypt->decode($data['fullname'])?></p>
                             </td>
                             <td>
                                 <p class="text-sm font-weight-bold mb-0">

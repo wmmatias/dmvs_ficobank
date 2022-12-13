@@ -1,0 +1,270 @@
+#
+# TABLE STRUCTURE FOR: documents
+#
+
+DROP TABLE IF EXISTS `documents`;
+
+CREATE TABLE `documents` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `folder_id` int(11) NOT NULL,
+  `document_no` varchar(255) DEFAULT NULL,
+  `document_type` varchar(255) DEFAULT NULL,
+  `user_id` int(11) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `update_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`,`folder_id`,`user_id`),
+  KEY `fk_documents_folders1_idx` (`folder_id`,`user_id`),
+  CONSTRAINT `fk_documents_folders1` FOREIGN KEY (`folder_id`, `user_id`) REFERENCES `folders` (`id`, `user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
+
+INSERT INTO `documents` (`id`, `folder_id`, `document_no`, `document_type`, `user_id`, `created_at`, `update_at`) VALUES ('3', '23', '123456', '1', '1', '2022-11-23 01:13:34', '2022-11-23 01:13:34');
+INSERT INTO `documents` (`id`, `folder_id`, `document_no`, `document_type`, `user_id`, `created_at`, `update_at`) VALUES ('4', '23', '123456', '0', '1', '2022-11-23 01:20:30', '2022-11-23 01:20:30');
+INSERT INTO `documents` (`id`, `folder_id`, `document_no`, `document_type`, `user_id`, `created_at`, `update_at`) VALUES ('5', '23', '123456', '1', '1', '2022-11-23 01:31:03', '2022-11-23 01:31:03');
+INSERT INTO `documents` (`id`, `folder_id`, `document_no`, `document_type`, `user_id`, `created_at`, `update_at`) VALUES ('6', '23', '123456', '0', '1', '2022-11-23 01:31:57', '2022-11-23 01:31:57');
+INSERT INTO `documents` (`id`, `folder_id`, `document_no`, `document_type`, `user_id`, `created_at`, `update_at`) VALUES ('10', '32', '123456', '0', '1', '2022-11-23 02:19:52', '2022-11-23 02:19:52');
+INSERT INTO `documents` (`id`, `folder_id`, `document_no`, `document_type`, `user_id`, `created_at`, `update_at`) VALUES ('11', '34', '12345612', '0', '1', '2022-11-23 02:36:19', '2022-11-23 02:36:19');
+INSERT INTO `documents` (`id`, `folder_id`, `document_no`, `document_type`, `user_id`, `created_at`, `update_at`) VALUES ('12', '36', '12345612123222', '0', '1', '2022-11-23 10:00:42', '2022-11-23 10:00:42');
+INSERT INTO `documents` (`id`, `folder_id`, `document_no`, `document_type`, `user_id`, `created_at`, `update_at`) VALUES ('13', '36', '123456www12', '1', '1', '2022-11-23 10:00:46', '2022-11-23 10:00:46');
+INSERT INTO `documents` (`id`, `folder_id`, `document_no`, `document_type`, `user_id`, `created_at`, `update_at`) VALUES ('14', '40', '12345612123222as', '0', '1', '2022-11-23 13:08:55', '2022-11-23 13:08:55');
+INSERT INTO `documents` (`id`, `folder_id`, `document_no`, `document_type`, `user_id`, `created_at`, `update_at`) VALUES ('18', '45', 'DC123GT1233', '1', '1', '2022-11-23 19:05:45', '2022-11-23 19:05:45');
+INSERT INTO `documents` (`id`, `folder_id`, `document_no`, `document_type`, `user_id`, `created_at`, `update_at`) VALUES ('19', '47', 'DC123GT1233', '1', '1', '2022-11-23 22:57:45', '2022-11-23 22:57:45');
+INSERT INTO `documents` (`id`, `folder_id`, `document_no`, `document_type`, `user_id`, `created_at`, `update_at`) VALUES ('20', '48', 'DC123GT1233', '1', '1', '2022-11-23 22:58:23', '2022-11-23 22:58:23');
+INSERT INTO `documents` (`id`, `folder_id`, `document_no`, `document_type`, `user_id`, `created_at`, `update_at`) VALUES ('21', '49', 'DC123GT1233', '0', '1', '2022-11-23 22:59:47', '2022-11-23 22:59:47');
+INSERT INTO `documents` (`id`, `folder_id`, `document_no`, `document_type`, `user_id`, `created_at`, `update_at`) VALUES ('22', '52', 'DC123GT1233', '0', '1', '2022-11-23 23:07:27', '2022-11-23 23:07:27');
+INSERT INTO `documents` (`id`, `folder_id`, `document_no`, `document_type`, `user_id`, `created_at`, `update_at`) VALUES ('23', '53', 'DC123GT1233', '1', '1', '2022-11-23 23:11:24', '2022-11-23 23:11:24');
+INSERT INTO `documents` (`id`, `folder_id`, `document_no`, `document_type`, `user_id`, `created_at`, `update_at`) VALUES ('24', '54', 'DC123GT1233', '0', '1', '2022-11-23 23:12:29', '2022-11-23 23:12:29');
+INSERT INTO `documents` (`id`, `folder_id`, `document_no`, `document_type`, `user_id`, `created_at`, `update_at`) VALUES ('25', '55', 'DC123GT1233', '1', '1', '2022-11-23 23:15:07', '2022-11-23 23:15:07');
+INSERT INTO `documents` (`id`, `folder_id`, `document_no`, `document_type`, `user_id`, `created_at`, `update_at`) VALUES ('26', '56', 'DC123GT1233', '0', '1', '2022-11-23 23:18:59', '2022-11-23 23:18:59');
+INSERT INTO `documents` (`id`, `folder_id`, `document_no`, `document_type`, `user_id`, `created_at`, `update_at`) VALUES ('27', '57', 'DC123GT1233', '0', '1', '2022-11-23 23:21:59', '2022-11-23 23:21:59');
+INSERT INTO `documents` (`id`, `folder_id`, `document_no`, `document_type`, `user_id`, `created_at`, `update_at`) VALUES ('28', '58', 'DC123GT1233', '1', '1', '2022-11-23 23:23:36', '2022-11-23 23:23:36');
+INSERT INTO `documents` (`id`, `folder_id`, `document_no`, `document_type`, `user_id`, `created_at`, `update_at`) VALUES ('29', '59', '123456', '0', '1', '2022-11-23 23:25:44', '2022-11-23 23:25:44');
+INSERT INTO `documents` (`id`, `folder_id`, `document_no`, `document_type`, `user_id`, `created_at`, `update_at`) VALUES ('30', '59', 'DC123GT1233', '1', '1', '2022-11-23 23:25:56', '2022-11-23 23:25:56');
+INSERT INTO `documents` (`id`, `folder_id`, `document_no`, `document_type`, `user_id`, `created_at`, `update_at`) VALUES ('31', '63', 'DC123GT1233', '0', '1', '2022-11-23 23:28:56', '2022-11-23 23:28:56');
+INSERT INTO `documents` (`id`, `folder_id`, `document_no`, `document_type`, `user_id`, `created_at`, `update_at`) VALUES ('32', '63', '123456', '0', '1', '2022-11-23 23:29:52', '2022-11-23 23:29:52');
+INSERT INTO `documents` (`id`, `folder_id`, `document_no`, `document_type`, `user_id`, `created_at`, `update_at`) VALUES ('33', '64', 'DC123GT1233', '0', '1', '2022-11-23 23:32:48', '2022-11-23 23:32:48');
+INSERT INTO `documents` (`id`, `folder_id`, `document_no`, `document_type`, `user_id`, `created_at`, `update_at`) VALUES ('34', '65', 'DC123GT1233', '0', '1', '2022-11-23 23:34:49', '2022-11-23 23:34:49');
+INSERT INTO `documents` (`id`, `folder_id`, `document_no`, `document_type`, `user_id`, `created_at`, `update_at`) VALUES ('35', '68', 'DC123GT1233', '0', '1', '2022-12-13 21:25:03', '2022-12-13 21:25:03');
+INSERT INTO `documents` (`id`, `folder_id`, `document_no`, `document_type`, `user_id`, `created_at`, `update_at`) VALUES ('36', '75', 'DC123GT1233', '0', '1', '2022-12-14 02:51:35', '2022-12-14 02:51:35');
+INSERT INTO `documents` (`id`, `folder_id`, `document_no`, `document_type`, `user_id`, `created_at`, `update_at`) VALUES ('37', '76', '123456121232', '0', '1', '2022-12-14 03:04:54', '2022-12-14 03:04:54');
+
+
+#
+# TABLE STRUCTURE FOR: folder_logs
+#
+
+DROP TABLE IF EXISTS `folder_logs`;
+
+CREATE TABLE `folder_logs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `folder_id` int(11) NOT NULL,
+  `staff_name` varchar(255) DEFAULT NULL,
+  `position` varchar(255) DEFAULT NULL,
+  `status` int(11) DEFAULT '0',
+  `location` int(11) DEFAULT NULL,
+  `user_id` int(11) NOT NULL,
+  `remarks` varchar(255) DEFAULT NULL,
+  `moved` datetime DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`,`folder_id`,`user_id`),
+  KEY `fk_folder_logs_folders1_idx` (`folder_id`,`user_id`),
+  CONSTRAINT `fk_folder_logs_folders1` FOREIGN KEY (`folder_id`, `user_id`) REFERENCES `folders` (`id`, `user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=latin1;
+
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('1', '32', 'admin firstname admin lastname', 'Admin', '0', '1', '1', NULL, NULL, '2022-11-23 02:20:21', '2022-11-23 02:20:21');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('2', '34', 'admin firstname admin lastname', 'Admin', '0', '1', '1', NULL, NULL, '2022-11-23 02:36:30', '2022-11-23 02:36:30');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('3', '36', 'admin firstname admin lastname', 'Admin', '0', '1', '1', NULL, NULL, '2022-11-23 10:00:50', '2022-11-23 10:00:50');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('4', '36', 'Juan Dela Cruz', 'Front Desk', '0', '2', '1', NULL, NULL, '2022-11-23 10:00:50', '2022-11-23 10:00:50');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('5', '36', 'admin firstname admin lastname', 'Admin', '1', '1', '1', NULL, NULL, '2022-11-23 10:00:50', '2022-11-23 10:00:50');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('6', '40', 'admin firstname admin lastname', 'Admin', '0', '1', '1', NULL, NULL, '2022-11-23 13:08:57', '2022-11-23 13:08:57');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('7', '40', 'Juan Dela Cruz', 'Bookeeper', '1', '1', '1', NULL, NULL, '2022-11-23 16:08:57', '2022-11-23 16:08:57');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('8', '40', 'Wilard Matias', 'Postman', '2', '2', '1', NULL, NULL, '2022-11-23 16:10:39', '2022-11-23 16:10:39');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('9', '40', 'Juan Dela Cruz', 'Bookeeper', '0', '2', '1', NULL, NULL, '2022-11-23 16:12:28', '2022-11-23 16:12:28');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('10', '40', 'Juan Dela Cruz', 'Clerk', '1', '2', '1', NULL, NULL, '2022-11-23 18:38:53', '2022-11-23 18:38:53');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('11', '40', 'Juan Dela Cruz', 'Postman', '0', '4', '1', NULL, NULL, '2022-11-23 18:39:21', '2022-11-23 18:39:21');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('12', '45', 'admin firstname admin lastname', 'Admin', '0', '1', '1', NULL, NULL, '2022-11-23 19:05:51', '2022-11-23 19:05:51');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('13', '45', 'Wilard', 'Bookeeper', '1', '1', '1', NULL, NULL, '2022-11-23 19:08:18', '2022-11-23 19:08:18');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('14', '45', 'Juan Dela Cruz', 'Mail Man', '2', '2', '1', NULL, NULL, '2022-11-23 19:08:41', '2022-11-23 19:08:41');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('15', '45', 'Juan Dela Cruz', 'Bookeeper', '0', '2', '1', NULL, NULL, '2022-11-23 19:08:52', '2022-11-23 19:08:52');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('16', '47', 'admin firstname admin lastname', 'Admin', '0', '1', '1', NULL, NULL, '2022-11-23 22:57:51', '2022-11-23 22:57:51');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('17', '48', 'admin firstname admin lastname', 'Admin', '0', '1', '1', NULL, NULL, '2022-11-23 22:58:26', '2022-11-23 22:58:26');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('18', '49', 'admin firstname admin lastname', 'Admin', '0', '1', '1', NULL, NULL, '2022-11-23 22:59:49', '2022-11-23 22:59:49');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('19', '52', 'admin firstname admin lastname', 'Admin', '0', '1', '1', NULL, NULL, '2022-11-23 23:07:30', '2022-11-23 23:07:30');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('20', '53', 'admin firstname admin lastname', 'Admin', '0', '1', '1', NULL, NULL, '2022-11-23 23:11:29', '2022-11-23 23:11:29');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('21', '54', 'admin firstname admin lastname', 'Admin', '0', '1', '1', NULL, NULL, '2022-11-23 23:12:31', '2022-11-23 23:12:31');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('22', '55', 'admin firstname admin lastname', 'Admin', '0', '1', '1', NULL, NULL, '2022-11-23 23:15:19', '2022-11-23 23:15:19');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('23', '57', 'admin firstname admin lastname', 'Admin', '0', '1', '1', NULL, NULL, '2022-11-23 23:22:01', '2022-11-23 23:22:01');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('24', '58', 'admin firstname admin lastname', 'Admin', '0', '1', '1', NULL, NULL, '2022-11-23 23:23:40', '2022-11-23 23:23:40');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('25', '63', 'admin firstname admin lastname', 'Admin', '0', '1', '1', NULL, NULL, '2022-11-23 23:29:54', '2022-11-23 23:29:54');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('26', '64', 'admin firstname admin lastname', 'Admin', '0', '1', '1', NULL, NULL, '2022-11-23 23:32:51', '2022-11-23 23:32:51');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('27', '65', 'admin firstname admin lastname', 'Admin', '0', '1', '1', NULL, NULL, '2022-11-23 23:34:50', '2022-11-23 23:34:50');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('28', '36', 'Wilard Matias', 'Mail Man', '2', '4', '1', NULL, NULL, '2022-11-23 23:47:41', '2022-11-23 23:47:41');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('29', '36', 'Juan Dela Cruz', 'Bookeeper', '0', '4', '1', NULL, NULL, '2022-11-23 23:59:38', '2022-11-23 23:59:38');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('30', '36', 'Juan Dela Cruz', 'Bookeeper', '1', '4', '1', NULL, NULL, '2022-11-24 00:01:29', '2022-11-24 00:01:29');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('31', '36', 'Wilard', 'Mail Man', '2', '3', '1', NULL, NULL, '2022-11-24 00:02:45', '2022-11-24 00:02:45');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('32', '63', 'Wilard', 'Clerk', '0', '2', '51', NULL, NULL, '2022-11-25 10:57:23', '2022-11-25 10:57:23');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('33', '63', 'Wilard', 'Clerk', '0', '1', '51', NULL, NULL, '2022-11-25 10:57:37', '2022-11-25 10:57:37');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('34', '47', 'Juan Dela Cruz', 'Clerk', '0', '2', '1', NULL, NULL, '2022-12-03 13:49:44', '2022-12-03 13:49:44');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('35', '40', 'juan dela cruz', 'Brother', '3', '5', '1', NULL, NULL, '2022-12-03 14:25:03', '2022-12-03 14:25:03');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('36', '63', 'Wilard', 'Clerk', '0', '1', '1', NULL, NULL, '2022-12-03 14:35:57', '2022-12-03 14:35:57');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('37', '63', 'juan dela cruz', 'Brother', '3', '5', '1', NULL, NULL, '2022-12-03 14:36:20', '2022-12-03 14:36:20');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('38', '45', 'Wilard', 'pinsan', '3', '5', '1', NULL, NULL, '2022-12-03 14:39:45', '2022-12-03 14:39:45');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('39', '48', 'Juan Dela Cruz', 'Clerk', '0', '2', '1', NULL, NULL, '2022-12-03 15:05:03', '2022-12-03 15:05:03');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('40', '49', 'Wilard', 'It Manager', '0', '2', '1', NULL, NULL, '2022-12-14 01:04:30', '2022-12-14 01:04:30');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('42', '49', 'Juan Dela Cruz', 'It Manager', '0', '1', '1', 'For Return', '2022-12-13 00:00:00', '2022-12-14 01:26:26', '2022-12-14 01:26:26');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('43', '75', 'admin firstname admin lastname', 'Admin', '0', '1', '1', NULL, NULL, '2022-12-14 02:51:39', '2022-12-14 02:51:39');
+INSERT INTO `folder_logs` (`id`, `folder_id`, `staff_name`, `position`, `status`, `location`, `user_id`, `remarks`, `moved`, `created_at`, `updated_at`) VALUES ('44', '76', 'admin firstname admin lastname', 'Admin', '0', '1', '1', 'New Borrower', '2022-12-14 03:04:57', '2022-12-14 03:04:57', '2022-12-14 03:04:57');
+
+
+#
+# TABLE STRUCTURE FOR: folders
+#
+
+DROP TABLE IF EXISTS `folders`;
+
+CREATE TABLE `folders` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `doc_number` varchar(245) DEFAULT NULL,
+  `fullname` varchar(255) DEFAULT NULL,
+  `loan_type` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT '0',
+  `location` int(11) DEFAULT '0',
+  `created_at` datetime DEFAULT NULL,
+  `update_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`,`user_id`),
+  KEY `fk_documents_users1_idx` (`user_id`),
+  CONSTRAINT `fk_documents_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=latin1;
+
+INSERT INTO `folders` (`id`, `user_id`, `doc_number`, `fullname`, `loan_type`, `status`, `location`, `created_at`, `update_at`) VALUES ('1', '1', '202211221129-19', 'WILARD MARQUEZ MATIAS', '0', '0', '0', '2022-11-22 23:29:51', '2022-11-22 23:29:51');
+INSERT INTO `folders` (`id`, `user_id`, `doc_number`, `fullname`, `loan_type`, `status`, `location`, `created_at`, `update_at`) VALUES ('2', '1', '202211221136-45', 'Clyde Reese Matias', '0', '0', '0', '2022-11-22 23:36:58', '2022-11-22 23:36:58');
+INSERT INTO `folders` (`id`, `user_id`, `doc_number`, `fullname`, `loan_type`, `status`, `location`, `created_at`, `update_at`) VALUES ('4', '1', '202211221144-28', 'winner matias', '1', '0', '0', '2022-11-22 23:44:43', '2022-11-22 23:44:43');
+INSERT INTO `folders` (`id`, `user_id`, `doc_number`, `fullname`, `loan_type`, `status`, `location`, `created_at`, `update_at`) VALUES ('5', '1', '202211221146-55', 'WILARD MARQUEZ MATIAS', '1', '0', '0', '2022-11-22 23:46:09', '2022-11-22 23:46:09');
+INSERT INTO `folders` (`id`, `user_id`, `doc_number`, `fullname`, `loan_type`, `status`, `location`, `created_at`, `update_at`) VALUES ('8', '1', '202211221159-47', 'Clyde Reese Matias', '0', '0', '0', '2022-11-22 23:59:06', '2022-11-22 23:59:06');
+INSERT INTO `folders` (`id`, `user_id`, `doc_number`, `fullname`, `loan_type`, `status`, `location`, `created_at`, `update_at`) VALUES ('9', '1', '202211231217-78', 'wilard matias', '1', '0', '0', '2022-11-23 00:17:28', '2022-11-23 00:17:28');
+INSERT INTO `folders` (`id`, `user_id`, `doc_number`, `fullname`, `loan_type`, `status`, `location`, `created_at`, `update_at`) VALUES ('15', '1', '202211231227-69', 'wilard matias', '1', '0', '0', '2021-11-23 00:27:45', '2022-11-23 00:27:45');
+INSERT INTO `folders` (`id`, `user_id`, `doc_number`, `fullname`, `loan_type`, `status`, `location`, `created_at`, `update_at`) VALUES ('23', '1', '202211231245-54', 'wilard matias', '1', '0', '0', '2022-11-23 00:45:22', '2022-11-23 00:45:22');
+INSERT INTO `folders` (`id`, `user_id`, `doc_number`, `fullname`, `loan_type`, `status`, `location`, `created_at`, `update_at`) VALUES ('26', '1', '20221123135-86', 'wilard matias', '0', '0', '0', '2022-11-23 01:35:26', '2022-11-23 01:35:26');
+INSERT INTO `folders` (`id`, `user_id`, `doc_number`, `fullname`, `loan_type`, `status`, `location`, `created_at`, `update_at`) VALUES ('32', '1', '20221123141-73', 'Clyde Reese Matias', '0', '1', '1', '2022-11-23 01:41:13', '2022-11-23 16:53:35');
+INSERT INTO `folders` (`id`, `user_id`, `doc_number`, `fullname`, `loan_type`, `status`, `location`, `created_at`, `update_at`) VALUES ('34', '1', '20221123235-82', 'Clyde Reese Matias', '0', '1', '1', '2022-01-23 02:35:38', '2022-11-23 17:32:57');
+INSERT INTO `folders` (`id`, `user_id`, `doc_number`, `fullname`, `loan_type`, `status`, `location`, `created_at`, `update_at`) VALUES ('36', '1', '202211231000-24', 'Wilard Marquez Matias', '0', '1', '4', '2022-11-23 10:00:30', '2022-12-03 13:43:33');
+INSERT INTO `folders` (`id`, `user_id`, `doc_number`, `fullname`, `loan_type`, `status`, `location`, `created_at`, `update_at`) VALUES ('40', '1', '20221123108-20', 'Clyde Reese Matias', '2', '1', '4', '2022-10-23 13:08:50', '2022-12-03 14:25:03');
+INSERT INTO `folders` (`id`, `user_id`, `doc_number`, `fullname`, `loan_type`, `status`, `location`, `created_at`, `update_at`) VALUES ('45', '1', '20221123705-19', 'Wilard Matias', '3', '1', '2', '2021-12-23 19:05:22', '2022-12-03 14:39:45');
+INSERT INTO `folders` (`id`, `user_id`, `doc_number`, `fullname`, `loan_type`, `status`, `location`, `created_at`, `update_at`) VALUES ('46', '1', '202211231033-74', 'Wilard Matias', '0', '0', '0', '2022-07-23 22:33:12', '2022-11-23 22:33:12');
+INSERT INTO `folders` (`id`, `user_id`, `doc_number`, `fullname`, `loan_type`, `status`, `location`, `created_at`, `update_at`) VALUES ('47', '1', '202211231056-100', 'Wilard Matias', '0', '3', '2', '2022-08-23 22:56:22', '2022-12-03 14:40:11');
+INSERT INTO `folders` (`id`, `user_id`, `doc_number`, `fullname`, `loan_type`, `status`, `location`, `created_at`, `update_at`) VALUES ('48', '1', '202211231058-53', 'Wilard Matias', '3', '0', '2', '2022-11-23 22:58:18', '2022-12-03 15:05:03');
+INSERT INTO `folders` (`id`, `user_id`, `doc_number`, `fullname`, `loan_type`, `status`, `location`, `created_at`, `update_at`) VALUES ('49', '1', '202211231059-68', 'Wilard Matias', '2', '0', '2', '2022-11-23 22:59:43', '2022-12-14 01:04:30');
+INSERT INTO `folders` (`id`, `user_id`, `doc_number`, `fullname`, `loan_type`, `status`, `location`, `created_at`, `update_at`) VALUES ('52', '1', '202211231107-34', 'Clyde Reese Matias', '1', '0', '1', '2022-11-23 23:07:15', '2022-11-23 23:07:29');
+INSERT INTO `folders` (`id`, `user_id`, `doc_number`, `fullname`, `loan_type`, `status`, `location`, `created_at`, `update_at`) VALUES ('53', '1', '202211231111-35', 'Wilard Marquez Matias', '2', '0', '1', '2022-11-23 23:11:16', '2022-11-23 23:11:29');
+INSERT INTO `folders` (`id`, `user_id`, `doc_number`, `fullname`, `loan_type`, `status`, `location`, `created_at`, `update_at`) VALUES ('54', '1', '202211231112-64', 'Winner Matias', '3', '0', '1', '2022-11-23 23:12:24', '2022-11-23 23:12:31');
+INSERT INTO `folders` (`id`, `user_id`, `doc_number`, `fullname`, `loan_type`, `status`, `location`, `created_at`, `update_at`) VALUES ('55', '1', '202211231115-12', 'Clyde Reese Matias', '0', '0', '1', '2022-11-23 23:15:03', '2022-11-23 23:15:19');
+INSERT INTO `folders` (`id`, `user_id`, `doc_number`, `fullname`, `loan_type`, `status`, `location`, `created_at`, `update_at`) VALUES ('56', '1', '202211231118-43', 'Clyde Reese Matias', '2', '0', '0', '2022-11-23 23:18:55', '2022-11-23 23:18:55');
+INSERT INTO `folders` (`id`, `user_id`, `doc_number`, `fullname`, `loan_type`, `status`, `location`, `created_at`, `update_at`) VALUES ('57', '1', '202211231121-36', 'Clyde Reese Matias', '2', '0', '1', '2022-11-23 23:21:54', '2022-11-23 23:22:01');
+INSERT INTO `folders` (`id`, `user_id`, `doc_number`, `fullname`, `loan_type`, `status`, `location`, `created_at`, `update_at`) VALUES ('58', '1', '202211231123-40', 'Wilard Matias', '1', '0', '1', '2022-11-23 23:23:29', '2022-11-23 23:23:40');
+INSERT INTO `folders` (`id`, `user_id`, `doc_number`, `fullname`, `loan_type`, `status`, `location`, `created_at`, `update_at`) VALUES ('59', '1', '202211231124-13', 'Wilard Matias', '0', '0', '0', '2022-11-23 23:24:06', '2022-11-23 23:24:06');
+INSERT INTO `folders` (`id`, `user_id`, `doc_number`, `fullname`, `loan_type`, `status`, `location`, `created_at`, `update_at`) VALUES ('60', '1', '202211231127-47', 'Clyde Reese Matias', '1', '0', '0', '2022-11-23 23:27:23', '2022-11-23 23:27:23');
+INSERT INTO `folders` (`id`, `user_id`, `doc_number`, `fullname`, `loan_type`, `status`, `location`, `created_at`, `update_at`) VALUES ('61', '1', '202211231127-78', 'Wilard Matias', '0', '0', '0', '2022-11-23 23:27:37', '2022-11-23 23:27:37');
+INSERT INTO `folders` (`id`, `user_id`, `doc_number`, `fullname`, `loan_type`, `status`, `location`, `created_at`, `update_at`) VALUES ('62', '1', '202211231128-59', 'Wilard Matias', '1', '0', '0', '2022-11-23 23:28:41', '2022-11-23 23:28:41');
+INSERT INTO `folders` (`id`, `user_id`, `doc_number`, `fullname`, `loan_type`, `status`, `location`, `created_at`, `update_at`) VALUES ('63', '1', '202211231128-40', 'Clyde Reese Matias', '1', '3', '1', '2022-11-23 23:28:51', '2022-12-03 14:36:19');
+INSERT INTO `folders` (`id`, `user_id`, `doc_number`, `fullname`, `loan_type`, `status`, `location`, `created_at`, `update_at`) VALUES ('64', '1', '202211231132-15', 'Wilard Matias', '3', '0', '1', '2022-11-23 23:32:43', '2022-11-23 23:32:51');
+INSERT INTO `folders` (`id`, `user_id`, `doc_number`, `fullname`, `loan_type`, `status`, `location`, `created_at`, `update_at`) VALUES ('65', '1', '202211231134-36', 'Wilard Matias', '0', '0', '1', '2022-11-23 23:34:46', '2022-11-23 23:34:50');
+INSERT INTO `folders` (`id`, `user_id`, `doc_number`, `fullname`, `loan_type`, `status`, `location`, `created_at`, `update_at`) VALUES ('68', '1', '20221213918-65', '5bd5c6c8ba1739350feedc1a6c873c92', '2', '0', '0', '2022-12-13 21:18:34', '2022-12-13 21:18:34');
+INSERT INTO `folders` (`id`, `user_id`, `doc_number`, `fullname`, `loan_type`, `status`, `location`, `created_at`, `update_at`) VALUES ('69', '1', '20221213931-64', '5bd5c6c8ba1739350feedc1a6c873c92', '1', '0', '0', '2022-12-13 21:31:09', '2022-12-13 21:31:09');
+INSERT INTO `folders` (`id`, `user_id`, `doc_number`, `fullname`, `loan_type`, `status`, `location`, `created_at`, `update_at`) VALUES ('70', '1', '20221213932-51', '3b2ac8cac50fb331950bb0c93a380f6d', '1', '0', '0', '2022-12-13 21:32:11', '2022-12-13 21:32:11');
+INSERT INTO `folders` (`id`, `user_id`, `doc_number`, `fullname`, `loan_type`, `status`, `location`, `created_at`, `update_at`) VALUES ('71', '1', '20221214129-51', 'a97a3e5fc8e693f052512cb85798e2cc', '0', '0', '0', '2022-12-14 01:29:22', '2022-12-14 01:29:22');
+INSERT INTO `folders` (`id`, `user_id`, `doc_number`, `fullname`, `loan_type`, `status`, `location`, `created_at`, `update_at`) VALUES ('75', '1', '20221214251-48', 'BkJVO1ItAGcGYFYsBlRXN11hAXxXYgIgARELYgByUW4HO1Um', '0', '0', '1', '2022-12-14 02:51:16', '2022-12-14 02:51:39');
+INSERT INTO `folders` (`id`, `user_id`, `doc_number`, `fullname`, `loan_type`, `status`, `location`, `created_at`, `update_at`) VALUES ('76', '1', '20221214304-20', 'UABROgJoVjRWJ1JsUHACSg42WiZRcFAnDTVfLQYgBB9RbVAkCD1XMlQg', '0', '0', '1', '2022-12-14 03:04:47', '2022-12-14 03:04:57');
+
+
+#
+# TABLE STRUCTURE FOR: logs
+#
+
+DROP TABLE IF EXISTS `logs`;
+
+CREATE TABLE `logs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `activity` varchar(255) DEFAULT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`,`created_by`),
+  KEY `fk_logs_users1_idx` (`created_by`),
+  CONSTRAINT `fk_logs_users1` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=latin1;
+
+INSERT INTO `logs` (`id`, `activity`, `created_by`, `created_at`) VALUES ('1', 'admin firstname admin lastname successfully logged out', '1', '2022-11-22 18:30:25');
+INSERT INTO `logs` (`id`, `activity`, `created_by`, `created_at`) VALUES ('2', 'admin firstname admin lastname successfully logged in', '1', '2022-11-22 18:30:30');
+INSERT INTO `logs` (`id`, `activity`, `created_by`, `created_at`) VALUES ('3', 'admin firstname admin lastname successfully logged in', '1', '2022-11-23 01:53:09');
+INSERT INTO `logs` (`id`, `activity`, `created_by`, `created_at`) VALUES ('4', 'admin firstname admin lastname successfully logged out', '1', '2022-11-23 10:55:57');
+INSERT INTO `logs` (`id`, `activity`, `created_by`, `created_at`) VALUES ('5', 'WILARD MATIAS successfully logged in', '42', '2022-11-23 10:56:02');
+INSERT INTO `logs` (`id`, `activity`, `created_by`, `created_at`) VALUES ('6', 'WILARD MATIAS successfully logged out', '42', '2022-11-23 11:00:47');
+INSERT INTO `logs` (`id`, `activity`, `created_by`, `created_at`) VALUES ('7', 'WILARD MATIAS successfully logged in', '44', '2022-11-23 11:01:37');
+INSERT INTO `logs` (`id`, `activity`, `created_by`, `created_at`) VALUES ('8', 'WILARD MATIAS successfully logged out', '44', '2022-11-23 11:01:52');
+INSERT INTO `logs` (`id`, `activity`, `created_by`, `created_at`) VALUES ('9', 'admin firstname admin lastname successfully logged in', '1', '2022-11-23 11:01:56');
+INSERT INTO `logs` (`id`, `activity`, `created_by`, `created_at`) VALUES ('10', 'admin firstname admin lastname successfully logged out', '1', '2022-11-23 11:02:50');
+INSERT INTO `logs` (`id`, `activity`, `created_by`, `created_at`) VALUES ('11', 'WILARD MATIAS successfully logged in', '42', '2022-11-23 11:03:37');
+INSERT INTO `logs` (`id`, `activity`, `created_by`, `created_at`) VALUES ('12', 'WILARD MATIAS successfully logged out', '42', '2022-11-23 11:03:45');
+INSERT INTO `logs` (`id`, `activity`, `created_by`, `created_at`) VALUES ('13', 'WILARD MATIAS successfully logged in', '44', '2022-11-23 11:03:50');
+INSERT INTO `logs` (`id`, `activity`, `created_by`, `created_at`) VALUES ('14', 'WILARD MATIAS successfully logged out', '44', '2022-11-23 11:04:00');
+INSERT INTO `logs` (`id`, `activity`, `created_by`, `created_at`) VALUES ('15', 'admin firstname admin lastname successfully logged in', '1', '2022-11-23 11:04:05');
+INSERT INTO `logs` (`id`, `activity`, `created_by`, `created_at`) VALUES ('16', 'admin firstname admin lastname successfully logged in', '1', '2022-11-23 14:25:11');
+INSERT INTO `logs` (`id`, `activity`, `created_by`, `created_at`) VALUES ('17', 'Clyde Reese Matias successfully logged out', '1', '2022-11-23 16:16:42');
+INSERT INTO `logs` (`id`, `activity`, `created_by`, `created_at`) VALUES ('18', 'admin firstname admin lastname successfully logged in', '1', '2022-11-24 01:08:03');
+INSERT INTO `logs` (`id`, `activity`, `created_by`, `created_at`) VALUES ('19', 'admin firstname admin lastname successfully logged in', '1', '2022-11-24 16:00:04');
+INSERT INTO `logs` (`id`, `activity`, `created_by`, `created_at`) VALUES ('20', 'admin firstname admin lastname successfully logged in', '1', '2022-11-25 02:06:34');
+INSERT INTO `logs` (`id`, `activity`, `created_by`, `created_at`) VALUES ('21', 'admin firstname admin lastname successfully logged out', '1', '2022-11-25 02:06:56');
+INSERT INTO `logs` (`id`, `activity`, `created_by`, `created_at`) VALUES ('22', 'Wilard Matias successfully logged in', '51', '2022-11-25 02:07:05');
+INSERT INTO `logs` (`id`, `activity`, `created_by`, `created_at`) VALUES ('23', 'admin firstname admin lastname successfully logged in', '1', '2022-12-02 04:39:28');
+INSERT INTO `logs` (`id`, `activity`, `created_by`, `created_at`) VALUES ('24', 'admin firstname admin lastname successfully logged out', '1', '2022-12-02 04:42:17');
+INSERT INTO `logs` (`id`, `activity`, `created_by`, `created_at`) VALUES ('25', 'admin firstname admin lastname successfully logged in', '1', '2022-12-02 04:42:22');
+INSERT INTO `logs` (`id`, `activity`, `created_by`, `created_at`) VALUES ('26', 'admin firstname admin lastname successfully logged out', '1', '2022-12-02 12:47:27');
+INSERT INTO `logs` (`id`, `activity`, `created_by`, `created_at`) VALUES ('27', 'admin firstname admin lastname successfully logged in', '1', '2022-12-02 12:47:34');
+INSERT INTO `logs` (`id`, `activity`, `created_by`, `created_at`) VALUES ('28', 'admin firstname admin lastname successfully logged in', '1', '2022-12-03 13:16:42');
+INSERT INTO `logs` (`id`, `activity`, `created_by`, `created_at`) VALUES ('29', 'admin firstname admin lastname successfully logged out', '1', '2022-12-03 13:35:35');
+INSERT INTO `logs` (`id`, `activity`, `created_by`, `created_at`) VALUES ('30', 'admin firstname admin lastname successfully logged in', '1', '2022-12-03 13:35:51');
+INSERT INTO `logs` (`id`, `activity`, `created_by`, `created_at`) VALUES ('31', 'admin firstname admin lastname successfully logged out', '1', '2022-12-03 14:50:06');
+INSERT INTO `logs` (`id`, `activity`, `created_by`, `created_at`) VALUES ('32', 'admin firstname admin lastname successfully logged in', '1', '2022-12-03 15:04:47');
+INSERT INTO `logs` (`id`, `activity`, `created_by`, `created_at`) VALUES ('33', 'admin firstname admin lastname successfully logged in', '1', '2022-12-07 14:17:30');
+INSERT INTO `logs` (`id`, `activity`, `created_by`, `created_at`) VALUES ('34', 'admin firstname admin lastname successfully logged in', '1', '2022-12-13 01:19:33');
+INSERT INTO `logs` (`id`, `activity`, `created_by`, `created_at`) VALUES ('35', 'admin firstname admin lastname successfully logged in', '1', '2022-12-13 19:04:50');
+INSERT INTO `logs` (`id`, `activity`, `created_by`, `created_at`) VALUES ('36', 'admin firstname admin lastname successfully logged in', '1', '2022-12-14 01:03:22');
+INSERT INTO `logs` (`id`, `activity`, `created_by`, `created_at`) VALUES ('37', 'wilard matias successfully logged out', '1', '2022-12-14 01:49:29');
+INSERT INTO `logs` (`id`, `activity`, `created_by`, `created_at`) VALUES ('38', 'admin firstname admin lastname successfully logged in', '1', '2022-12-14 01:51:17');
+INSERT INTO `logs` (`id`, `activity`, `created_by`, `created_at`) VALUES ('39', ' successfully logged out', '1', '2022-12-14 05:17:06');
+INSERT INTO `logs` (`id`, `activity`, `created_by`, `created_at`) VALUES ('40', 'admin firstname admin lastname successfully logged in', '1', '2022-12-14 05:17:12');
+
+
+#
+# TABLE STRUCTURE FOR: users
+#
+
+DROP TABLE IF EXISTS `users`;
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(45) DEFAULT NULL,
+  `last_name` varchar(45) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `user_name` varchar(45) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `user_level` varchar(45) DEFAULT NULL,
+  `status` int(11) DEFAULT '0',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=53 DEFAULT CHARSET=latin1;
+
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `user_name`, `password`, `user_level`, `status`, `created_at`, `updated_at`) VALUES ('1', 'admin firstname', 'admin lastname', 'lard0595@gmail.com', 'admin', '161ebd7d45089b3446ee4e0d86dbcf92', '0', '0', '2022-08-25 00:00:00', '2022-12-14 01:49:27');
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `user_name`, `password`, `user_level`, `status`, `created_at`, `updated_at`) VALUES ('42', 'WILARD', 'MATIAS', 'lard0595@gmail.com', 'wmmatias', '161ebd7d45089b3446ee4e0d86dbcf92', '1', '0', '2022-10-22 03:51:56', '2022-10-22 03:51:56');
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `user_name`, `password`, `user_level`, `status`, `created_at`, `updated_at`) VALUES ('44', 'WILARD', 'MATIAS', 'laasdsssrd0595@gmail.com', 'wmmatiass', '161ebd7d45089b3446ee4e0d86dbcf92', '2', '0', '2022-10-23 04:23:52', '2022-10-23 04:23:52');
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `user_name`, `password`, `user_level`, `status`, `created_at`, `updated_at`) VALUES ('45', 'juan', 'dela cruz', 'lard0595@gmail.com', 'wmmatiasss', '161ebd7d45089b3446ee4e0d86dbcf92', '2', '0', '2022-10-23 05:01:36', '2022-10-23 05:01:36');
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `user_name`, `password`, `user_level`, `status`, `created_at`, `updated_at`) VALUES ('46', 'WILARD', 'MATIAS', 'lard0595@gmail.com', 'admin123', '161ebd7d45089b3446ee4e0d86dbcf92', '2', '0', '2022-11-10 01:06:26', '2022-11-10 01:06:26');
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `user_name`, `password`, `user_level`, `status`, `created_at`, `updated_at`) VALUES ('47', 'WILARD', 'MATIAS', 'lard0595@gmail.com', 'wmmatiasasssss', 'e0568dbe5554bc17a877ae08d8846fdd', '2', '0', '2022-11-22 08:17:01', '2022-11-22 08:17:01');
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `user_name`, `password`, `user_level`, `status`, `created_at`, `updated_at`) VALUES ('48', 'WILARD', 'MATIAS', 'lard0595@gmail.com', 'userasdsss', 'e0568dbe5554bc17a877ae08d8846fdd', '2', '0', '2022-11-22 08:19:03', '2022-11-22 08:19:03');
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `user_name`, `password`, `user_level`, `status`, `created_at`, `updated_at`) VALUES ('49', 'Wilard', 'Matias', 'lard0595@gmail.com', 'wmmatiasasdas', 'e0568dbe5554bc17a877ae08d8846fdd', '2', '0', '2022-11-22 08:34:47', '2022-11-22 08:34:47');
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `user_name`, `password`, `user_level`, `status`, `created_at`, `updated_at`) VALUES ('50', 'Wilard', 'Matias', 'lard0595@gmail.com', 'wmmatiasa', 'e0568dbe5554bc17a877ae08d8846fdd', '1', '0', '2022-11-24 01:40:52', '2022-11-24 01:40:52');
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `user_name`, `password`, `user_level`, `status`, `created_at`, `updated_at`) VALUES ('51', 'Wilard', 'Matias', 'lard0595@gmail.com', 'wmmatiassssz', 'e0568dbe5554bc17a877ae08d8846fdd', '2', '0', '2022-11-25 02:06:50', '2022-11-25 02:06:50');
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `user_name`, `password`, `user_level`, `status`, `created_at`, `updated_at`) VALUES ('52', 'admin', 'admin', 'admin@gmail.com', 'admin2', 'e0568dbe5554bc17a877ae08d8846fdd', '0', '0', NULL, NULL);
+
+

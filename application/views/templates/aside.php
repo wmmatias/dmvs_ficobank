@@ -32,9 +32,9 @@ $level = $this->session->userdata('level');
             </a>
             </li>
             <li class="nav-item">
-            <a <?= ($page === 'Export') ? 'class="nav-link text-white active bg-gradient-primary""' : 'class="nav-link text-white"' ?> href="/dashboards/export_backup" onclick="return confirm('Are you sure you want to backup the DataBase?')">
+            <!-- <a <?= ($page === 'Export') ? 'class="nav-link text-white active bg-gradient-primary""' : 'class="nav-link text-white"' ?> href="/dashboards/export_backup" onclick="return confirm('Are you sure you want to backup the DataBase?')">
                 <span class="nav-link-text ms-1">Export Database</span>
-            </a>
+            </a> -->
             </li>
 <?php       }
 ?>            <li class="nav-item mt-3">

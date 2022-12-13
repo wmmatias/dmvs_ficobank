@@ -3,6 +3,10 @@ $(document).ready( function () {
         "order":[]
     });
     $('#docslist').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'print'
+        ],
         "order":[]
     });
     $('.movement_form').hide();
@@ -19,6 +23,10 @@ $(document).ready( function () {
         $('.movement_form').hide();
         $('#hide_form').hide();
         $('#show_form').show();
+    });
+
+    $("#print_icon").click(function(){
+        $('docslist').removeAttr('id');
     });
 
     $('#add_docs').submit(function() {
